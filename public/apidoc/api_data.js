@@ -4,6 +4,7 @@ define({ "api": [
     "url": "/firefighters",
     "title": "All Firefighters list",
     "group": "Firefighters",
+    "version": "0.0.1",
     "success": {
       "fields": {
         "Success 200": [
@@ -66,7 +67,6 @@ define({ "api": [
         }
       ]
     },
-    "version": "0.0.0",
     "filename": "routes/firefighters.js",
     "groupTitle": "Firefighters",
     "name": "GetFirefighters"

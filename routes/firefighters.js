@@ -1,8 +1,12 @@
 module.exports = app => {
      const db=app.db;
+     /**
+       @apiDefine version 0.0.1
+      */
     /**
      * @api {get} /firefighters All Firefighters list
      * @apiGroup Firefighters
+     * @apiVersion 0.0.1
      * @apiSuccess {Number} id Firefighter id
      * @apiSuccess {Number} ba Bombero Asuncion number
      * @apiSuccess {Date} swore_date Date of swore
