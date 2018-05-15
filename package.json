@@ -1,0 +1,30 @@
+{
+  "name": "cbva-web-app-v2",
+  "version": "1.0.0",
+  "description": "Api for firefighter CBVA",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node index.js",
+    "apidoc":"apidoc -i routes/ -o public/apidoc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiquetal/web-app-cbva-v2.git"
+  },
+  "author": "kiquetal@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kiquetal/web-app-cbva-v2/issues"
+  },
+  "homepage": "https://github.com/kiquetal/web-app-cbva-v2#readme",
+  "dependencies": {
+    "apidoc": "^0.17.6",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "consign": "^0.1.6",
+    "express": "^4.16.3",
+    "knex": "^0.14.6",
+    "mysql": "^2.15.0"
+  }
+}
