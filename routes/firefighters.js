@@ -29,7 +29,29 @@ module.exports = app => {
      */
      app.route("/firefighters")
 	.get((req,res)=>{
-	   db.knex("firefighter").select("*").then(row => { res.json({"results":row})});
+
+        let query = req.query.q;
+        if (query != null) {
+            console.log("buscando query" + query);
+            db.knex("firefighter")
+                .join("person  as p", "p.id", "firefighter.person_id")
+                .join("rank as k", "k.id", "firefighter.rank_id")
+                .where('name', 'like', "%" + query + "%")
+                .select("p.name as name ", "k.acronim as rango", "firefighter.active as status", "firefighter.ba as ba").then(firefighter => {
+                /*  let data=[];
+                     firefighter.map((f)=>{
+                      data.push(f);
+                  });
+                     res.json({"result":data});
+                 */
+                if (firefighter.length < 1) res.status(404).json({"result": "not found"});
+                else
+                    res.json({"result": firefighter})
+            });
+        }
+        else
+
+            db.knex("firefighter").select("*").then(row => { res.json({"results":row})});
 	});
     /**
      * @api {get} /firefighters/:ba  Details from Firefighter
