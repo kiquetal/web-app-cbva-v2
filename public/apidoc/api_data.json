@@ -5,6 +5,19 @@
     "title": "All Firefighters list",
     "group": "Firefighters",
     "version": "0.0.1",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "q",
+            "description": "<p>Name</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "fields": {
         "Success 200": [

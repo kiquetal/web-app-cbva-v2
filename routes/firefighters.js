@@ -7,6 +7,7 @@ module.exports = app => {
      * @api {get} /firefighters All Firefighters list
      * @apiGroup Firefighters
      * @apiVersion 0.0.1
+     * @apiParam {String} q Name
      * @apiSuccess {Number} id Firefighter id
      * @apiSuccess {Number} ba Bombero Asuncion number
      * @apiSuccess {Date} swore_date Date of swore
