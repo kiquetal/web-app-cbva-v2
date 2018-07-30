@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="564f1290-4146-4f77-aa94-47b91d945930" name="Default" comment="Adding attendance_activities">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/24524191-6c99-487b-a9d7-c88dab50372b/storage_v2/_src_/schema/cbvaDb.aN2Lrg.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/24524191-6c99-487b-a9d7-c88dab50372b/storage_v2/_src_/schema/cbvaDb.aN2Lrg.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/activities.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/activities.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/persons.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/persons.js" afterDir="false" />
-    </list>
+    <list default="true" id="564f1290-4146-4f77-aa94-47b91d945930" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,7 +52,7 @@
         <entry file="file://$PROJECT_DIR$/routes/activities.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
-              <caret line="133" column="106" selection-start-line="133" selection-start-column="106" selection-end-line="133" selection-end-column="106" />
+              <caret line="135" column="106" selection-start-line="135" selection-start-column="106" selection-end-line="135" selection-end-column="106" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -100,7 +96,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="console.sql" pinned="false" current-in-tab="true">
+      <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/24524191-6c99-487b-a9d7-c88dab50372b/console.sql">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="503">
@@ -118,11 +114,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="firefighter" pinned="false" current-in-tab="false">
-        <entry file="das://24524191-6c99-487b-a9d7-c88dab50372b/schema/cbvaDb/table/firefighter">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+      <file leaf-file-name="functions.sql" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/functions.sql">
+          <provider selected="true" editor-type-id="text-editor">
             <state>
-              <filtering enabled="true" />
+              <caret lean-forward="true" />
             </state>
           </provider>
         </entry>
@@ -366,7 +362,7 @@
       <workItem from="1532368443768" duration="849000" />
       <workItem from="1532399568961" duration="1206000" />
       <workItem from="1532657622742" duration="5560000" />
-      <workItem from="1532834112070" duration="28055000" />
+      <workItem from="1532834112070" duration="28332000" />
     </task>
     <task id="LOCAL-00001" summary="Adding search functionality">
       <created>1527481332823</created>
@@ -410,11 +406,18 @@
       <option name="project" value="LOCAL" />
       <updated>1532921857883</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Fix activities">
+      <created>1532926099105</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1532926099105</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74859000" />
+    <option name="totallyTimeSpent" value="75136000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1044" extended-state="6" />
@@ -426,17 +429,17 @@
       <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49839914" weight="0.32896176" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info anchor="bottom" id="DB Execution Console" order="8" sideWeight="0.4994664" weight="0.32896176" />
-      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.5133405" side_tool="true" visible="true" weight="0.32896176" />
+      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.5026681" side_tool="true" visible="true" weight="0.32896176" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="right" id="REPL" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49786553" weight="0.32896176" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49733192" visible="true" weight="0.32896176" />
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.4994664" weight="0.32896176" />
       <window_info anchor="right" id="Leiningen" order="3" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.7139808" weight="0.32786885" />
-      <window_info active="true" anchor="bottom" id="Database Console" order="12" sideWeight="0.48665956" visible="true" weight="0.32896176" />
+      <window_info anchor="bottom" id="Database Console" order="12" sideWeight="0.48665956" weight="0.32896176" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.495114" visible="true" weight="0.27588046" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.495114" visible="true" weight="0.27588046" />
       <window_info anchor="right" id="Database" order="3" visible="true" weight="0.15955175" />
       <window_info id="Structure" order="1" sideWeight="0.504886" side_tool="true" weight="0.25506938" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -468,7 +471,8 @@
     <MESSAGE value="Register_activity" />
     <MESSAGE value="Adding sqldump" />
     <MESSAGE value="Adding attendance_activities" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding attendance_activities" />
+    <MESSAGE value="Fix activities" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix activities" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -622,13 +626,6 @@
     <entry file="db://85c3721d-dbae-47e4-a627-a72145f7f95b/consoles/Connection">
       <provider selected="true" editor-type-id="0.CONSOLE">
         <state line="0" column="19" selection-start="19" selection-end="19" vertical-scroll-proportion="0.0" current-schema="cbvaDb" session-id="MAIN" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/functions.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-        </state>
       </provider>
     </entry>
     <entry file="das://24524191-6c99-487b-a9d7-c88dab50372b/schema/cbvaDb/table/firefighter.sql">
@@ -912,13 +909,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sql/scratches">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="157" selection-start-line="157" selection-end-line="157" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/ranks.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="534">
@@ -950,7 +940,7 @@
     <entry file="file://$PROJECT_DIR$/routes/activities.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="133" column="106" selection-start-line="133" selection-start-column="106" selection-end-line="133" selection-end-column="106" />
+          <caret line="135" column="106" selection-start-line="135" selection-start-column="106" selection-end-line="135" selection-end-column="106" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -975,6 +965,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="503">
           <caret line="192" selection-start-line="192" selection-end-line="192" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql/scratches">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="157" selection-start-line="157" selection-end-line="157" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/functions.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
         </state>
       </provider>
     </entry>
