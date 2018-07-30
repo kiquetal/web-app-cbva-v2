@@ -1,0 +1,185 @@
+select * from instructor_activity JOIN activity a on instructor_activity.activity_id = a.id
+SELECT TIMESTAMPDIFF(MINUTE,'2018-07-21 16:12:32',null );
+
+ DROP TRIGGER  IF EXISTS chk_present_attendance;
+ DROP TRIGGER IF EXISTS update_attendance;
+ DROP TRIGGER IF EXISTS chk_present_instructor_attendance;
+ DROP TRIGGER IF EXISTS update_present_instructor_attendance;
+ DROP TRIGGER IF EXISTS chk_before_insert_instructor;
+
+
+ delimiter //
+ CREATE TRIGGER chk_present_attendance BEFORE INSERT on attendance_activity
+   FOR EACH ROW
+   BEGIN
+
+
+     DECLARE minutes INT;
+     DECLARE thresold INT;
+     DECLARE start_date_activity DATETIME;
+     DECLARE end_date_activity DATETIME;
+
+     SELECT threshold from activity WHERE activity.id=NEW.activity_id INTO thresold;
+     SELECT start_date from activity WHERE activity.id=NEW.activity_id INTO start_date_activity;
+     SELECT end_date from activity WHERE activity.id=NEW.activity_id INTO end_date_activity;
+
+     SELECT TIMESTAMPDIFF(minute,NEW.start_activity,NEW.end_activity) INTO minutes;
+
+
+     IF (NEW.start_activity < start_date_activity OR NEW.end_activity >end_date_activity) THEN
+
+         SIGNAL SQLSTATE '02000' SET MESSAGE_TEXT = 'Your input date are invalids,check TABLE ACTIVITY ';
+
+       end if ;
+
+
+       IF (NEW.end_activity IS NOT NULL ) THEN
+     IF (minutes < 0) then
+       SIGNAL SQLSTATE '02000' SET MESSAGE_TEXT = 'Start activity must be lower than end_activity';
+
+     end if ;
+
+     IF (minutes>=thresold) THEN
+     SET NEW.present=true;
+       END IF ;
+
+      END IF ;
+
+
+   end //
+
+  CREATE TRIGGER update_attendance BEFORE UPDATE on attendance_activity
+    FOR EACH ROW
+    BEGIN
+
+      DECLARE minutes INT;
+      DECLARE thresold INT;
+      DECLARE start_date_activity DATETIME;
+      DECLARE end_date_activity DATETIME;
+
+      SELECT start_date from activity WHERE activity.id=NEW.activity_id INTO start_date_activity;
+      SELECT end_date from activity WHERE activity.id=NEW.activity_id INTO end_date_activity;
+
+      SELECT threshold from activity WHERE activity.id=NEW.activity_id INTO thresold;
+      SELECT TIMESTAMPDIFF(minute,NEW.start_activity,NEW.end_activity) INTO minutes;
+
+      IF (NEW.start_activity < start_date_activity OR NEW.end_activity >end_date_activity) THEN
+
+        SIGNAL SQLSTATE '02000' SET MESSAGE_TEXT = 'Your input date are invalids,check TABLE ACTIVITY ';
+
+      end if ;
+
+
+
+
+      IF (NEW.end_activity IS NOT NULL ) THEN
+        IF (minutes < 0) then
+          SIGNAL SQLSTATE '02000' SET MESSAGE_TEXT = 'Start activity must be lower than end_activity';
+
+        end if ;
+
+        IF (minutes>=thresold) THEN
+          SET NEW.present=true;
+        ELSE
+          SET NEW.present=false;
+        END IF ;
+
+      END IF ;
+    end //
+
+
+  CREATE TRIGGER chk_before_insert_instructor BEFORE INSERT on instructor_activity
+    FOR EACH ROW
+    BEGIN
+
+      DECLARE start_date_activity DATETIME;
+      DECLARE end_date_activity DATETIME;
+
+      SELECT start_date from activity WHERE activity.id=NEW.activity_id INTO start_date_activity;
+      SELECT end_date from activity WHERE activity.id=NEW.activity_id INTO end_date_activity;
+
+      IF (NEW.start_activity < start_date_activity OR NEW.end_activity >end_date_activity) THEN
+
+        SIGNAL SQLSTATE '02000' SET MESSAGE_TEXT = 'Your input date are invalids,check TABLE ACTIVITY ';
+
+      end if ;
+
+    end //
+
+  CREATE TRIGGER chk_present_instructor_attendance AFTER INSERT on instructor_activity
+    FOR EACH ROW
+    BEGIN
+            INSERT into attendance_activity(person_id, activity_id,start_activity,end_activity,is_instructor) VALUES (new.instructor_id,NEW.activity_id,New.start_activity,NEW.end_activity,true );
+
+    end //
+
+  CREATE TRIGGER update_present_instructor_attendance AFTER UPDATE on instructor_activity
+    FOR EACH ROW
+    BEGIN
+      UPDATE attendance_activity
+        SET start_activity=NEW.start_activity,end_activity=NEW.end_activity
+      WHERE person_id=NEW.instructor_id AND attendance_activity.activity_id=NEW.activity_id;
+    end //
+
+
+DELETE FROM attendance_activity;
+select * from attendance_activity;
+
+
+
+
+INSERT INTO person(name,cin) values ("SENAD INSTRUCTOR 1","12312321");
+select * from person;
+
+
+SELECT actP.is_instructor, act.label_activity,act.id,p.name,a.name_type_activity from attendance_activity as actP
+INNER JOIN activity as act ON act.id=actP.activity_id
+   INNER  JOIN activity_type a on act.activity_type = a.id
+  INNER JOIN person as p ON p.id=actP.person_id
+INNER JOIN  firefighter f on actP.person_id = f.person_id
+WHERE f.ba=404;
+
+DELETE FROM instructor_activity;
+
+SELECT * FROM instructor_activity;
+select * from attendance_activity;
+
+select * from activity;
+
+INSERT INTO instructor_activity(instructor_id, activity_id) VALUES (436,1);
+
+DELETE FROM attendance_activity;
+
+UPDATE instructor_activity
+SET start_activity='2018-07-22 21:12:32', end_activity='2018-07-22 21:38:21'
+where instructor_id=436
+and activity_id=1;
+
+INSERT INTO attendance_activity(person_id, activity_id) VALUES (436,2);
+
+
+#OBTAIN ACTIVITY WHERE  PERSON_ID IS INSTRUCTORS
+select * from attendance_activity;
+select * from instructor_activity;
+delete from attendance_activity;
+
+select activity_id from attendance_activity where activity_id NOT IN (
+
+SELECT activity_id from instructor_activity WHERE activity_id IN (select activity_id from attendance_activity
+where attendance_activity.person_id=instructor_activity.instructor_id AND instructor_id=366) )
+and person_id=366;
+
+ SELECT '2018-07-21 21:10:31' > '2018-07-21 21:12:31';
+
+SELECT p.name as name ,f.ba, s.name as station_name,activity.id as activity_id,
+          activity.label_activity as actividad , attendance_activity.present ,attendance_activity.is_instructor
+           ,activity.description, attendance_activity.start_activity as start_date, attendance_activity.end_activity as end_date
+  FROM  attendance_activity
+JOIN  activity activity ON  activity.id =attendance_activity.activity_id
+join  station  s ON s.id=activity.station_id
+join  instructor_activity ins_a ON ins_a.activity_id=  activity.id
+join  person p ON p.id= attendance_activity.person_id
+left Outer Join  firefighter f ON f.person_id = attendance_activity.person_id
+where ( attendance_activity.person_id=436) group by (attendance_activity.activity_id);
+
+

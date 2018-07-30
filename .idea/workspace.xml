@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="564f1290-4146-4f77-aa94-47b91d945930" name="Default" comment="Adding activities">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/24524191-6c99-487b-a9d7-c88dab50372b.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/attendances.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+    <list default="true" id="564f1290-4146-4f77-aa94-47b91d945930" name="Default" comment="Adding sqldump">
+      <change afterPath="$PROJECT_DIR$/routes/persons.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/ranks.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sql/scratches" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/24524191-6c99-487b-a9d7-c88dab50372b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/24524191-6c99-487b-a9d7-c88dab50372b.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/24524191-6c99-487b-a9d7-c88dab50372b/storage_v2/_src_/schema/cbvaDb.aN2Lrg.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/24524191-6c99-487b-a9d7-c88dab50372b/storage_v2/_src_/schema/cbvaDb.aN2Lrg.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/libs/db.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/activities.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/activities.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/attendances.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/attendances.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/firefighters.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/firefighters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/todump.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/todump.sql" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -45,70 +47,39 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="cbvaDb: schema" type="c314c289:MysqlImplModel$Schema" />
       </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="cbvaDb@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="cbvaDb: schema" type="c314c289:MysqlImplModel$Schema" />
+        <item name="instructor_activity: table" type="98d5ac3d:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="cbvaDb@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="cbvaDb: schema" type="c314c289:MysqlImplModel$Schema" />
+        <item name="person: table" type="98d5ac3d:MysqlImplModel$Table" />
+      </path>
     </expand>
     <select />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="db.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/libs/db.js">
+      <file leaf-file-name="activities.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/activities.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="30" lean-forward="true" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+            <state relative-caret-position="405">
+              <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
               <folding>
-                <element signature="e#0#24#0" expanded="true" />
+                <element signature="e#0#28#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="console_1.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/24524191-6c99-487b-a9d7-c88dab50372b/console_1.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="15" selection-start-column="15" selection-end-column="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="todump.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sql/todump.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1710">
-              <caret line="114" column="785" selection-start-line="114" selection-start-column="785" selection-end-line="114" selection-end-column="785" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activities.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/routes/activities.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="21" column="30" lean-forward="true" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="firefighters.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/firefighters.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="508">
-              <caret line="254" lean-forward="true" selection-start-line="254" selection-end-line="254" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="attendances.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/attendances.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="21" column="30" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activities" pinned="false" current-in-tab="false">
-        <entry file="das://24524191-6c99-487b-a9d7-c88dab50372b/schema/cbvaDb/table/activities">
+      <file leaf-file-name="activity" pinned="false" current-in-tab="false">
+        <entry file="das://24524191-6c99-487b-a9d7-c88dab50372b/schema/cbvaDb/table/activity">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
               <filtering enabled="true" />
@@ -125,89 +96,65 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/24524191-6c99-487b-a9d7-c88dab50372b/console.sql">
+      <file leaf-file-name="firefighters.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/firefighters.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="34" selection-start-column="34" selection-end-column="34" />
+            <state relative-caret-position="405">
+              <caret line="92" column="11" lean-forward="true" selection-start-line="92" selection-start-column="11" selection-end-line="92" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DATABASE/24524191-6c99-487b-a9d7-c88dab50372b" pinned="false" current-in-tab="false">
-        <entry file="uml://DATABASE/24524191-6c99-487b-a9d7-c88dab50372b">
-          <provider selected="true" editor-type-id="UmlEditorProvider">
+      <file leaf-file-name="ranks.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/routes/ranks.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="534">
+              <caret line="85" column="1" lean-forward="true" selection-start-line="85" selection-start-column="1" selection-end-line="85" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/24524191-6c99-487b-a9d7-c88dab50372b/console.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="458">
+              <caret line="189" column="31" selection-start-line="189" selection-end-line="189" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="scratches" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sql/scratches">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="157" selection-start-line="157" selection-end-line="157" selection-end-column="71" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="firefighter" pinned="false" current-in-tab="false">
+        <entry file="das://24524191-6c99-487b-a9d7-c88dab50372b/schema/cbvaDb/table/firefighter">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
-              <ID>DATABASE</ID>
-              <OriginalElement>24524191-6c99-487b-a9d7-c88dab50372b</OriginalElement>
-              <nodes>
-                <node x="117.75" y="437.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter</node>
-                <node x="204.0" y="702.5">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter_audit</node>
-                <node x="350.75" y="495.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.instructor_activity</node>
-                <node x="414.75" y="173.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity</node>
-                <node x="23.75" y="230.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.rank</node>
-                <node x="232.75" y="230.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.person</node>
-                <node x="0.0" y="679.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.attendance_activity</node>
-                <node x="511.5" y="23.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity_type</node>
-                <node x="309.5" y="0.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.station</node>
-              </nodes>
-              <notes />
-              <edges>
-                <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.attendance_activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter">
-                  <point x="0.0" y="-73.0" />
-                  <point x="92.0" y="654.0" />
-                  <point x="156.75" y="654.0" />
-                  <point x="-39.0" y="96.0" />
-                </edge>
-                <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.person">
-                  <point x="39.0" y="-96.0" />
-                  <point x="234.75" y="412.0" />
-                  <point x="273.25" y="412.0" />
-                  <point x="-40.5" y="50.0" />
-                </edge>
-                <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity_type">
-                  <point x="50.25" y="-107.0" />
-                  <point x="565.5" y="148.0" />
-                  <point x="630.0" y="148.0" />
-                  <point x="0.0" y="38.5" />
-                </edge>
-                <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.rank">
-                  <point x="-39.0" y="-96.0" />
-                  <point x="156.75" y="412.0" />
-                  <point x="118.25" y="412.0" />
-                  <point x="0.0" y="50.0" />
-                </edge>
-                <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.instructor_activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity">
-                  <point x="42.0" y="-38.0" />
-                  <point x="476.75" y="412.0" />
-                  <point x="515.25" y="412.0" />
-                  <point x="0.0" y="107.0" />
-                </edge>
-                <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.station">
-                  <point x="-50.25" y="-107.0" />
-                  <point x="465.0" y="148.0" />
-                  <point x="400.5" y="148.0" />
-                  <point x="0.0" y="61.5" />
-                </edge>
-                <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.instructor_activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.person">
-                  <point x="-42.0" y="-38.0" />
-                  <point x="392.75" y="412.0" />
-                  <point x="354.25" y="412.0" />
-                  <point x="40.5" y="50.0" />
-                </edge>
-                <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter_audit" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter">
-                  <point x="0.0" y="-49.5" />
-                  <point x="299.5" y="654.0" />
-                  <point x="234.75" y="654.0" />
-                  <point x="39.0" y="96.0" />
-                </edge>
-              </edges>
-              <settings layout="Hierarchic Group" zoom="0.5647058823529412" x="415.0" y="280.5" />
-              <SelectedNodes />
-              <Categories>
-                <Category>Key columns</Category>
-                <Category>Columns</Category>
-              </Categories>
+              <filtering enabled="true" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="attendances.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/attendances.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="13" column="14" lean-forward="true" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="persons.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/persons.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="534">
+              <caret line="132" column="1" lean-forward="true" selection-start-line="132" selection-start-column="1" selection-end-line="132" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -222,6 +169,11 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="kiquetal &lt;kiquetal@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
@@ -230,15 +182,21 @@
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/db.js" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/routes/firefighters.js" />
         <option value="$PROJECT_DIR$/routes/attendance.js" />
         <option value="24524191-6c99-487b-a9d7-c88dab50372b/schema/cbvaDb/table/firefighter.sql" />
         <option value="85c3721d-dbae-47e4-a627-a72145f7f95b/consoles/Connection" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/24524191-6c99-487b-a9d7-c88dab50372b/console_1.sql" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/24524191-6c99-487b-a9d7-c88dab50372b/console.sql" />
         <option value="$PROJECT_DIR$/libs/db.js" />
+        <option value="$PROJECT_DIR$/http/activity_register.json" />
+        <option value="$PROJECT_DIR$/sql/todump.sql" />
+        <option value="$PROJECT_DIR$/routes/ranks.js" />
         <option value="$PROJECT_DIR$/routes/attendances.js" />
+        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.sql" />
+        <option value="$PROJECT_DIR$/sql/scratches" />
+        <option value="$PROJECT_DIR$/routes/firefighters.js" />
+        <option value="$PROJECT_DIR$/routes/persons.js" />
         <option value="$PROJECT_DIR$/routes/activities.js" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/24524191-6c99-487b-a9d7-c88dab50372b/console.sql" />
       </list>
     </option>
   </component>
@@ -273,6 +231,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="Course" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -318,15 +279,14 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="GenericSQL" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/uml" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -415,7 +375,12 @@
       <workItem from="1531691374753" duration="281000" />
       <workItem from="1531691677108" duration="9536000" />
       <workItem from="1531748964808" duration="9000" />
-      <workItem from="1532225100973" duration="6510000" />
+      <workItem from="1532225100973" duration="9276000" />
+      <workItem from="1532367454649" duration="666000" />
+      <workItem from="1532368443768" duration="849000" />
+      <workItem from="1532399568961" duration="1206000" />
+      <workItem from="1532657622742" duration="5560000" />
+      <workItem from="1532834112070" duration="24020000" />
     </task>
     <task id="LOCAL-00001" summary="Adding search functionality">
       <created>1527481332823</created>
@@ -438,41 +403,54 @@
       <option name="project" value="LOCAL" />
       <updated>1531713990324</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Register_activity">
+      <created>1532662415163</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1532662415163</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Adding sqldump">
+      <created>1532835457817</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1532835457817</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35757000" />
+    <option name="totallyTimeSpent" value="70824000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="0" width="1928" height="1048" extended-state="6" />
+    <frame x="0" y="0" width="1920" height="1044" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info id="DB Browser" order="2" sideWeight="0.49674267" weight="0.32977587" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49839914" weight="0.32896176" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info anchor="bottom" id="DB Execution Console" order="7" sideWeight="0.4994664" weight="0.32896176" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.2769477" side_tool="true" visible="true" weight="0.32896176" />
+      <window_info anchor="bottom" id="DB Execution Console" order="8" sideWeight="0.4994664" weight="0.32896176" />
+      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.5122732" side_tool="true" visible="true" weight="0.32896176" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="right" id="REPL" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4994664" weight="0.32896176" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49786553" weight="0.32896176" />
+      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.4994664" weight="0.32896176" />
       <window_info anchor="right" id="Leiningen" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.7230523" visible="true" weight="0.32896176" />
-      <window_info anchor="bottom" id="Database Console" order="8" sideWeight="0.49519745" weight="0.32896176" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.715048" weight="0.32786885" />
+      <window_info anchor="bottom" id="Database Console" order="12" sideWeight="0.48772678" visible="true" weight="0.32896176" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.495114" visible="true" weight="0.26040554" />
-      <window_info active="true" anchor="right" id="Database" order="3" visible="true" weight="0.15955175" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4994664" weight="0.32896176" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.495114" visible="true" weight="0.27588046" />
+      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.15955175" />
       <window_info id="Structure" order="1" sideWeight="0.504886" side_tool="true" weight="0.25506938" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info id="Capture Tool" order="2" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.4994664" weight="0.32896176" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -481,6 +459,7 @@
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info id="Image Layers" order="2" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4994664" weight="0.32896176" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -493,66 +472,13 @@
     <MESSAGE value="Adding search functionality" />
     <MESSAGE value="Adding activities" />
     <MESSAGE value="New dump" />
-    <option name="LAST_COMMIT_MESSAGE" value="New dump" />
+    <MESSAGE value="Register_activity" />
+    <MESSAGE value="Adding sqldump" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding sqldump" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/knex/knex.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="7" column="34" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/knex/lib/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="915">
-          <caret line="61" selection-start-line="61" selection-end-line="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/firefighters.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" column="36" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libs/db.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="11" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="20" selection-start-column="18" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/firefighters.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" selection-start-line="17" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -718,81 +644,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://24524191-6c99-487b-a9d7-c88dab50372b/schema/cbvaDb/table/firefighter">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="uml://DATABASE/24524191-6c99-487b-a9d7-c88dab50372b.SCHEMA:cbvaDb">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>DATABASE</ID>
-          <OriginalElement>24524191-6c99-487b-a9d7-c88dab50372b.SCHEMA:cbvaDb</OriginalElement>
-          <nodes>
-            <node x="391.0" y="23.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.actitivy_type</node>
-            <node x="100.75" y="173.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter</node>
-            <node x="182.0" y="11.5">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.rank</node>
-            <node x="44.25" y="438.5">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter_audit</node>
-            <node x="648.0" y="0.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.station</node>
-            <node x="529.75" y="173.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activities</node>
-            <node x="486.25" y="415.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.attendance_activity</node>
-            <node x="0.0" y="11.5">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.person</node>
-          </nodes>
-          <notes />
-          <edges>
-            <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.attendance_activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter">
-              <point x="-46.0" y="-73.0" />
-              <point x="532.25" y="390.0" />
-              <point x="217.75" y="390.0" />
-              <point x="39.0" y="96.0" />
-            </edge>
-            <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activities" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.actitivy_type">
-              <point x="-47.25" y="-96.0" />
-              <point x="577.0" y="148.0" />
-              <point x="509.5" y="148.0" />
-              <point x="0.0" y="38.5" />
-            </edge>
-            <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.person">
-              <point x="-39.0" y="-96.0" />
-              <point x="139.75" y="148.0" />
-              <point x="81.0" y="148.0" />
-              <point x="0.0" y="50.0" />
-            </edge>
-            <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activities" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.station">
-              <point x="47.25" y="-96.0" />
-              <point x="671.5" y="148.0" />
-              <point x="739.0" y="148.0" />
-              <point x="0.0" y="61.5" />
-            </edge>
-            <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.rank">
-              <point x="39.0" y="-96.0" />
-              <point x="217.75" y="148.0" />
-              <point x="276.5" y="148.0" />
-              <point x="0.0" y="50.0" />
-            </edge>
-            <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter_audit" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter">
-              <point x="0.0" y="-49.5" />
-              <point x="-39.0" y="96.0" />
-            </edge>
-            <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.attendance_activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activities">
-              <point x="46.0" y="-73.0" />
-              <point x="0.0" y="96.0" />
-            </edge>
-          </edges>
-          <settings layout="Hierarchic Group" zoom="1.0" x="178.0" y="237.0" />
-          <SelectedNodes>
-            <node>24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.attendance_activity</node>
-          </SelectedNodes>
-          <Categories>
-            <Category>Key columns</Category>
-            <Category>Columns</Category>
-          </Categories>
-          <SCOPE>All</SCOPE>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -828,13 +679,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="24" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/knex/knex.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -856,33 +700,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sql/todump.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1710">
-          <caret line="114" column="785" selection-start-line="114" selection-start-column="785" selection-end-line="114" selection-end-column="785" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/24524191-6c99-487b-a9d7-c88dab50372b/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="34" selection-start-column="34" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="uml://DATABASE/24524191-6c99-487b-a9d7-c88dab50372b">
       <provider selected="true" editor-type-id="UmlEditorProvider">
         <state>
           <ID>DATABASE</ID>
           <OriginalElement>24524191-6c99-487b-a9d7-c88dab50372b</OriginalElement>
           <nodes>
-            <node x="117.75" y="437.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter</node>
-            <node x="204.0" y="702.5">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter_audit</node>
-            <node x="350.75" y="495.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.instructor_activity</node>
+            <node x="117.75" y="415.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter</node>
+            <node x="204.0" y="680.5">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter_audit</node>
+            <node x="350.75" y="473.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.instructor_activity</node>
             <node x="414.75" y="173.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity</node>
-            <node x="23.75" y="230.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.rank</node>
-            <node x="232.75" y="230.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.person</node>
-            <node x="0.0" y="679.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.attendance_activity</node>
+            <node x="23.75" y="219.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.rank</node>
+            <node x="232.75" y="219.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.person</node>
+            <node x="0.0" y="657.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.attendance_activity</node>
             <node x="511.5" y="23.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity_type</node>
             <node x="309.5" y="0.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.station</node>
           </nodes>
@@ -890,55 +720,148 @@
           <edges>
             <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.attendance_activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter">
               <point x="0.0" y="-73.0" />
-              <point x="92.0" y="654.0" />
-              <point x="156.75" y="654.0" />
+              <point x="92.0" y="632.0" />
+              <point x="156.75" y="632.0" />
               <point x="-39.0" y="96.0" />
             </edge>
             <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.person">
               <point x="39.0" y="-96.0" />
-              <point x="234.75" y="412.0" />
-              <point x="273.25" y="412.0" />
+              <point x="234.75" y="390.0" />
+              <point x="273.25" y="390.0" />
               <point x="-40.5" y="50.0" />
             </edge>
             <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity_type">
-              <point x="50.25" y="-107.0" />
+              <point x="50.25" y="-96.0" />
               <point x="565.5" y="148.0" />
               <point x="630.0" y="148.0" />
               <point x="0.0" y="38.5" />
             </edge>
             <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.rank">
               <point x="-39.0" y="-96.0" />
-              <point x="156.75" y="412.0" />
-              <point x="118.25" y="412.0" />
+              <point x="156.75" y="390.0" />
+              <point x="118.25" y="390.0" />
               <point x="0.0" y="50.0" />
             </edge>
             <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.instructor_activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity">
               <point x="42.0" y="-38.0" />
-              <point x="476.75" y="412.0" />
-              <point x="515.25" y="412.0" />
-              <point x="0.0" y="107.0" />
+              <point x="476.75" y="390.0" />
+              <point x="515.25" y="390.0" />
+              <point x="0.0" y="96.0" />
             </edge>
             <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.station">
-              <point x="-50.25" y="-107.0" />
+              <point x="-50.25" y="-96.0" />
               <point x="465.0" y="148.0" />
               <point x="400.5" y="148.0" />
               <point x="0.0" y="61.5" />
             </edge>
             <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.instructor_activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.person">
               <point x="-42.0" y="-38.0" />
-              <point x="392.75" y="412.0" />
-              <point x="354.25" y="412.0" />
+              <point x="392.75" y="390.0" />
+              <point x="354.25" y="390.0" />
               <point x="40.5" y="50.0" />
             </edge>
             <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter_audit" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter">
               <point x="0.0" y="-49.5" />
-              <point x="299.5" y="654.0" />
-              <point x="234.75" y="654.0" />
+              <point x="299.5" y="632.0" />
+              <point x="234.75" y="632.0" />
               <point x="39.0" y="96.0" />
             </edge>
           </edges>
-          <settings layout="Hierarchic Group" zoom="0.5647058823529412" x="415.0" y="280.5" />
+          <settings layout="Hierarchic Group" zoom="1.0" x="240.0" y="240.0" />
           <SelectedNodes />
+          <Categories>
+            <Category>Key columns</Category>
+            <Category>Columns</Category>
+          </Categories>
+          <SCOPE>All</SCOPE>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/db.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://24524191-6c99-487b-a9d7-c88dab50372b/schema/cbvaDb/table/activities">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://DATABASE/24524191-6c99-487b-a9d7-c88dab50372b.SCHEMA:cbvaDb">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>DATABASE</ID>
+          <OriginalElement>24524191-6c99-487b-a9d7-c88dab50372b.SCHEMA:cbvaDb</OriginalElement>
+          <nodes>
+            <node x="117.75" y="415.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter</node>
+            <node x="204.0" y="680.5">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter_audit</node>
+            <node x="350.75" y="473.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.instructor_activity</node>
+            <node x="414.75" y="173.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity</node>
+            <node x="23.75" y="219.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.rank</node>
+            <node x="232.75" y="219.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.person</node>
+            <node x="0.0" y="657.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.attendance_activity</node>
+            <node x="282.0" y="23.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity_type</node>
+            <node x="539.0" y="0.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.station</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.attendance_activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter">
+              <point x="0.0" y="-73.0" />
+              <point x="92.0" y="632.0" />
+              <point x="156.75" y="632.0" />
+              <point x="-39.0" y="96.0" />
+            </edge>
+            <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.person">
+              <point x="39.0" y="-96.0" />
+              <point x="234.75" y="390.0" />
+              <point x="273.25" y="390.0" />
+              <point x="-40.5" y="50.0" />
+            </edge>
+            <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.rank">
+              <point x="-39.0" y="-96.0" />
+              <point x="156.75" y="390.0" />
+              <point x="118.25" y="390.0" />
+              <point x="0.0" y="50.0" />
+            </edge>
+            <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity_type">
+              <point x="-50.25" y="-96.0" />
+              <point x="465.0" y="148.0" />
+              <point x="400.5" y="148.0" />
+              <point x="0.0" y="38.5" />
+            </edge>
+            <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.instructor_activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity">
+              <point x="42.0" y="-38.0" />
+              <point x="476.75" y="390.0" />
+              <point x="515.25" y="390.0" />
+              <point x="0.0" y="96.0" />
+            </edge>
+            <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.station">
+              <point x="50.25" y="-96.0" />
+              <point x="565.5" y="148.0" />
+              <point x="630.0" y="148.0" />
+              <point x="0.0" y="61.5" />
+            </edge>
+            <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.instructor_activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.person">
+              <point x="-42.0" y="-38.0" />
+              <point x="392.75" y="390.0" />
+              <point x="354.25" y="390.0" />
+              <point x="40.5" y="50.0" />
+            </edge>
+            <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter_audit" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter">
+              <point x="0.0" y="-49.5" />
+              <point x="299.5" y="632.0" />
+              <point x="234.75" y="632.0" />
+              <point x="39.0" y="96.0" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="0.583232077764277" x="374.5" y="401.50000000000006" />
+          <SelectedNodes>
+            <node>24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.rank</node>
+          </SelectedNodes>
           <Categories>
             <Category>Key columns</Category>
             <Category>Columns</Category>
@@ -946,17 +869,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libs/db.js">
+    <entry file="file://$PROJECT_DIR$/http/activity_register.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="30" lean-forward="true" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="105">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
-    <entry file="das://24524191-6c99-487b-a9d7-c88dab50372b/schema/cbvaDb/table/activities">
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="24" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://24524191-6c99-487b-a9d7-c88dab50372b/schema/cbvaDb/table/activity_type">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql/todump.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="44" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://24524191-6c99-487b-a9d7-c88dab50372b/schema/cbvaDb/table/instructor_activity">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://24524191-6c99-487b-a9d7-c88dab50372b/schema/cbvaDb/table/activity">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
@@ -970,24 +918,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/attendances.js">
+    <entry file="das://24524191-6c99-487b-a9d7-c88dab50372b/schema/cbvaDb/table/firefighter">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="21" column="30" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
+        <state relative-caret-position="168">
+          <caret line="157" lean-forward="true" selection-start-line="157" selection-end-line="157" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sql/scratches">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="157" selection-start-line="157" selection-end-line="157" selection-end-column="71" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/firefighters.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="254" lean-forward="true" selection-start-line="254" selection-end-line="254" />
+        <state relative-caret-position="405">
+          <caret line="92" column="11" lean-forward="true" selection-start-line="92" selection-start-column="11" selection-end-line="92" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/activities.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="21" column="30" lean-forward="true" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
+        <state relative-caret-position="405">
+          <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/24524191-6c99-487b-a9d7-c88dab50372b/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="458">
+          <caret line="189" column="31" selection-start-line="189" selection-end-line="189" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/attendances.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="14" lean-forward="true" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/persons.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="534">
+          <caret line="132" column="1" lean-forward="true" selection-start-line="132" selection-start-column="1" selection-end-line="132" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/ranks.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="534">
+          <caret line="85" column="1" lean-forward="true" selection-start-line="85" selection-start-column="1" selection-end-line="85" selection-end-column="1" />
         </state>
       </provider>
     </entry>

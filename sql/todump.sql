@@ -30,6 +30,7 @@ CREATE TABLE `activity` (
   `end_date` datetime DEFAULT NULL,
   `label_activity` varchar(50) NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `threshold` int(11) DEFAULT 30,
   PRIMARY KEY (`id`),
   UNIQUE KEY `activities_id_pk` (`id`),
   KEY `activity_type_fk` (`activity_type`),
@@ -45,7 +46,7 @@ CREATE TABLE `activity` (
 
 LOCK TABLES `activity` WRITE;
 /*!40000 ALTER TABLE `activity` DISABLE KEYS */;
-INSERT INTO `activity` (`station_id`, `description`, `activity_type`, `start_date`, `end_date`, `label_activity`, `id`) VALUES (1,'probando put',5,'2018-07-22 21:10:23','2018-07-22 22:40:23','enseñando a los nuevos',1);
+INSERT INTO `activity` (`station_id`, `description`, `activity_type`, `start_date`, `end_date`, `label_activity`, `id`, `threshold`) VALUES (1,'probando put',5,'2018-07-22 21:10:23','2018-07-22 22:40:23','enseñando a los nuevos',1,30);
 /*!40000 ALTER TABLE `activity` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,8 +99,86 @@ CREATE TABLE `attendance_activity` (
 
 LOCK TABLES `attendance_activity` WRITE;
 /*!40000 ALTER TABLE `attendance_activity` DISABLE KEYS */;
+INSERT INTO `attendance_activity` (`person_id`, `activity_id`, `start_activity`, `end_activity`, `present`) VALUES (403,1,'2018-07-21 23:05:32','2018-07-21 23:20:34',0),(404,1,'2018-07-22 20:10:32','2018-07-22 21:20:12',1);
 /*!40000 ALTER TABLE `attendance_activity` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER chk_present_attendance BEFORE INSERT on attendance_activity
+   FOR EACH ROW
+   BEGIN
+
+
+     DECLARE minutes INT;
+     DECLARE thresold INT;
+
+     SELECT threshold from activity WHERE activity.id=NEW.activity_id INTO thresold;
+     SELECT TIMESTAMPDIFF(minute,NEW.start_activity,NEW.end_activity) INTO minutes;
+
+     IF (NEW.end_activity IS NOT NULL ) THEN
+     IF (minutes < 0) then
+       SIGNAL SQLSTATE '02000' SET MESSAGE_TEXT = 'Start activity must be lower than end_activity';
+
+     end if ;
+
+     IF (minutes>=thresold) THEN
+     SET NEW.present=true;
+       END IF ;
+
+      END IF ;
+
+
+   end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER update_attendance BEFORE UPDATE on attendance_activity
+    FOR EACH ROW
+    BEGIN
+
+      DECLARE minutes INT;
+      DECLARE thresold INT;
+
+      SELECT threshold from activity WHERE activity.id=NEW.activity_id INTO thresold;
+      SELECT TIMESTAMPDIFF(minute,NEW.start_activity,NEW.end_activity) INTO minutes;
+
+      IF (NEW.end_activity IS NOT NULL ) THEN
+        IF (minutes < 0) then
+          SIGNAL SQLSTATE '02000' SET MESSAGE_TEXT = 'Start activity must be lower than end_activity';
+
+        end if ;
+
+        IF (minutes>=thresold) THEN
+          SET NEW.present=true;
+        ELSE 
+          SET NEW.present=false;
+        END IF ;
+
+      END IF ;
+    end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `firefighter`
@@ -317,4 +396,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-28 23:37:14
+-- Dump completed on 2018-07-29 11:14:39

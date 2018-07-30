@@ -1376,16 +1376,17 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="345" parent="330" name="present">
+    <column id="345" parent="330" name="id">
       <Position>7</Position>
-      <DataType>tinyint(1)|0s</DataType>
-      <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="346" parent="330" name="id">
-      <Position>8</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="346" parent="330" name="threshold">
+      <Position>8</Position>
+      <DataType>int(11)|0s</DataType>
+      <DefaultExpression>&apos;30&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <index id="347" parent="330" name="activities_id_pk">
@@ -1401,184 +1402,203 @@
       <ColNames>activity_type</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="350" parent="330" name="activities_id_pk">
+    <key id="350" parent="330" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="351" parent="330" name="activities_id_pk">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>activities_id_pk</UnderlyingIndexName>
     </key>
-    <foreign-key id="351" parent="330" name="activity_station_id_fk">
+    <foreign-key id="352" parent="330" name="activity_station_id_fk">
       <ColNames>station_id</ColNames>
       <RefSchemaName>cbvaDb</RefSchemaName>
       <RefTableName>station</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="352" parent="330" name="activity_type_fk">
+    <foreign-key id="353" parent="330" name="activity_type_fk">
       <ColNames>activity_type</ColNames>
       <RefSchemaName>cbvaDb</RefSchemaName>
       <RefTableName>activity_type</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="353" parent="331" name="id">
+    <column id="354" parent="331" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="354" parent="331" name="name_type_activity">
+    <column id="355" parent="331" name="name_type_activity">
       <Position>2</Position>
       <DataType>varchar(20)|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="355" parent="331" name="PRIMARY">
+    <key id="356" parent="331" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="356" parent="332" name="person_id">
+    <column id="357" parent="332" name="person_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="357" parent="332" name="activity_id">
+    <column id="358" parent="332" name="activity_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="358" parent="332" name="start_activity">
+    <column id="359" parent="332" name="start_activity">
       <Position>3</Position>
       <DataType>datetime|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="359" parent="332" name="end_activity">
+    <column id="360" parent="332" name="end_activity">
       <Position>4</Position>
       <DataType>datetime|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="360" parent="332" name="present">
+    <column id="361" parent="332" name="is_instructor">
       <Position>5</Position>
       <DataType>tinyint(1)|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="361" parent="332" name="attendance_activity_activities_id_fk">
+    <column id="362" parent="332" name="present">
+      <Position>6</Position>
+      <DataType>tinyint(1)|0s</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="363" parent="332" name="attendance_activity_activities_id_fk">
       <ColNames>activity_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="362" parent="332" name="PRIMARY">
+    <key id="364" parent="332" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>person_id
 activity_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="363" parent="332" name="attendance_activity_firefighter_id_fk">
+    <foreign-key id="365" parent="332" name="attendance_activity_person_id_fk">
       <ColNames>person_id</ColNames>
       <RefSchemaName>cbvaDb</RefSchemaName>
-      <RefTableName>firefighter</RefTableName>
+      <RefTableName>person</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="364" parent="333" name="id">
+    <trigger id="366" parent="332" name="chk_present_attendance">
+      <Turn>before-row</Turn>
+      <Events>I</Events>
+    </trigger>
+    <trigger id="367" parent="332" name="update_attendance">
+      <Turn>before-row</Turn>
+      <Events>U</Events>
+    </trigger>
+    <column id="368" parent="333" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="365" parent="333" name="ba">
+    <column id="369" parent="333" name="ba">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="366" parent="333" name="swore_date">
+    <column id="370" parent="333" name="swore_date">
       <Position>3</Position>
       <DataType>date|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="367" parent="333" name="person_id">
+    <column id="371" parent="333" name="person_id">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="368" parent="333" name="update_date">
+    <column id="372" parent="333" name="update_date">
       <Position>5</Position>
       <DataType>date|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="369" parent="333" name="rank_id">
+    <column id="373" parent="333" name="rank_id">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="370" parent="333" name="active">
+    <column id="374" parent="333" name="active">
       <Position>7</Position>
       <DataType>tinyint(1)|0s</DataType>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="371" parent="333" name="ba">
+    <index id="375" parent="333" name="ba">
       <ColNames>ba</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="372" parent="333" name="person_id">
+    <index id="376" parent="333" name="person_id">
       <ColNames>person_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="373" parent="333" name="rank_id">
+    <index id="377" parent="333" name="rank_id">
       <ColNames>rank_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="374" parent="333" name="PRIMARY">
+    <key id="378" parent="333" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="375" parent="333" name="ba">
+    <key id="379" parent="333" name="ba">
       <ColNames>ba</ColNames>
       <UnderlyingIndexName>ba</UnderlyingIndexName>
     </key>
-    <foreign-key id="376" parent="333" name="firefighter_ibfk_1">
+    <foreign-key id="380" parent="333" name="firefighter_ibfk_1">
       <ColNames>person_id</ColNames>
       <RefSchemaName>cbvaDb</RefSchemaName>
       <RefTableName>person</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="377" parent="333" name="firefighter_ibfk_2">
+    <foreign-key id="381" parent="333" name="firefighter_ibfk_2">
       <ColNames>rank_id</ColNames>
       <RefSchemaName>cbvaDb</RefSchemaName>
       <RefTableName>rank</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <trigger id="378" parent="333" name="firefighter_trigger_fields">
+    <trigger id="382" parent="333" name="firefighter_trigger_fields">
       <Turn>before-row</Turn>
       <Events>U</Events>
     </trigger>
-    <trigger id="379" parent="333" name="firefighter_trigger_audit">
+    <trigger id="383" parent="333" name="firefighter_trigger_audit">
       <Turn>after-row</Turn>
       <Events>U</Events>
     </trigger>
-    <column id="380" parent="334" name="firefighter_id">
+    <column id="384" parent="334" name="firefighter_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="381" parent="334" name="message">
+    <column id="385" parent="334" name="message">
       <Position>2</Position>
       <DataType>text|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="382" parent="334" name="update_date">
+    <column id="386" parent="334" name="update_date">
       <Position>3</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
@@ -1586,137 +1606,161 @@ activity_id</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>current_timestamp()</OnUpdate>
     </column>
-    <index id="383" parent="334" name="firefighter_id">
+    <index id="387" parent="334" name="firefighter_id">
       <ColNames>firefighter_id</ColNames>
       <Type>btree</Type>
     </index>
-    <foreign-key id="384" parent="334" name="firefighter_audit_ibfk_1">
+    <foreign-key id="388" parent="334" name="firefighter_audit_ibfk_1">
       <ColNames>firefighter_id</ColNames>
       <RefSchemaName>cbvaDb</RefSchemaName>
       <RefTableName>firefighter</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="385" parent="335" name="instructor_id">
+    <column id="389" parent="335" name="instructor_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="386" parent="335" name="activity_id">
+    <column id="390" parent="335" name="activity_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="387" parent="335" name="instructor_activity_instructor_id_activity_id_pk">
+    <column id="391" parent="335" name="start_activity">
+      <Position>3</Position>
+      <DataType>datetime|0s</DataType>
+      <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="392" parent="335" name="end_activity">
+      <Position>4</Position>
+      <DataType>datetime|0s</DataType>
+      <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="393" parent="335" name="instructor_activity_instructor_id_activity_id_pk">
       <ColNames>instructor_id
 activity_id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="388" parent="335" name="instructor_activity_activities_id_fk">
+    <index id="394" parent="335" name="instructor_activity_activity_id_fk">
       <ColNames>activity_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="389" parent="335" name="instructor_activity_instructor_id_activity_id_pk">
+    <key id="395" parent="335" name="instructor_activity_instructor_id_activity_id_pk">
       <ColNames>instructor_id
 activity_id</ColNames>
       <UnderlyingIndexName>instructor_activity_instructor_id_activity_id_pk</UnderlyingIndexName>
     </key>
-    <foreign-key id="390" parent="335" name="instructor_activity_person_id_fk">
+    <foreign-key id="396" parent="335" name="instructor_activity_person_id_fk">
       <ColNames>instructor_id</ColNames>
       <RefSchemaName>cbvaDb</RefSchemaName>
       <RefTableName>person</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="391" parent="335" name="instructor_activity_activities_id_fk">
+    <foreign-key id="397" parent="335" name="instructor_activity_activity_id_fk">
       <ColNames>activity_id</ColNames>
       <RefSchemaName>cbvaDb</RefSchemaName>
       <RefTableName>activity</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="392" parent="336" name="id">
+    <trigger id="398" parent="335" name="chk_before_insert_instructor">
+      <Turn>before-row</Turn>
+      <Events>I</Events>
+    </trigger>
+    <trigger id="399" parent="335" name="chk_present_instructor_attendance">
+      <Turn>after-row</Turn>
+      <Events>I</Events>
+    </trigger>
+    <trigger id="400" parent="335" name="update_present_instructor_attendance">
+      <Turn>after-row</Turn>
+      <Events>U</Events>
+    </trigger>
+    <column id="401" parent="336" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="393" parent="336" name="name">
+    <column id="402" parent="336" name="name">
       <Position>2</Position>
       <DataType>varchar(100)|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="394" parent="336" name="cin">
+    <column id="403" parent="336" name="cin">
       <Position>3</Position>
       <DataType>varchar(12)|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="395" parent="336" name="PRIMARY">
+    <key id="404" parent="336" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="396" parent="337" name="id">
+    <column id="405" parent="337" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="397" parent="337" name="acronim">
+    <column id="406" parent="337" name="acronim">
       <Position>2</Position>
       <DataType>varchar(20)|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="398" parent="337" name="description">
+    <column id="407" parent="337" name="description">
       <Position>3</Position>
       <DataType>varchar(50)|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="399" parent="337" name="acronim">
+    <index id="408" parent="337" name="acronim">
       <ColNames>acronim</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="400" parent="337" name="PRIMARY">
+    <key id="409" parent="337" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="401" parent="337" name="acronim">
+    <key id="410" parent="337" name="acronim">
       <ColNames>acronim</ColNames>
       <UnderlyingIndexName>acronim</UnderlyingIndexName>
     </key>
-    <column id="402" parent="338" name="id">
+    <column id="411" parent="338" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="403" parent="338" name="name">
+    <column id="412" parent="338" name="name">
       <Position>2</Position>
       <DataType>varchar(25)|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="404" parent="338" name="address">
+    <column id="413" parent="338" name="address">
       <Position>3</Position>
       <DataType>varchar(100)|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="405" parent="338" name="telephone">
+    <column id="414" parent="338" name="telephone">
       <Position>4</Position>
       <DataType>varchar(25)|0s</DataType>
       <DefaultExpression>&apos;NULL&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="406" parent="338" name="PRIMARY">
+    <key id="415" parent="338" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

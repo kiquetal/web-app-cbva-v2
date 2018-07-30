@@ -49,20 +49,24 @@ module.exports = app => {
         .get((req, res) => {
             db.knex("activity")
                 .join("instructor_activity  as ins_a", "ins_a.activity_id", "activity.id")
-                .join("person as p", "p.id", "ins_a.instructor_id")
-                .rightJoin("firefighter as f", "p.id", "f.person_id")
+                .leftJoin("person as p", "p.id", "ins_a.instructor_id")
+                .leftJoin("firefighter as f", "p.id", "f.person_id")
                 .where({"activity.id": req.params.activity_id})
-                .select("p.name as name ", "f.ba", "activity.label_activity", "activity.description", "activity.start_date", "activity.end_date").then(instructors => {
+                .select("p.name as name ", "f.ba", "activity.label_activity", "activity.description", "activity.start_date", "activity.end_date", "p.id as person_id").then(instructors => {
 
                 var objResponse = instructors.reduce((acc, obj) => {
 
-                    acc["instructor"].push(obj["name"] + "|BA-[" + obj["ba"] + "]");
+                    acc["instructors"].push({
+                        "person_id": obj["person_id"],
+                        "ba": obj["ba"]
+                        , "name": obj["name"]
+                    });
                     return acc;
 
 
-                }, {"instructor": []});
+                }, {"instructors": []});
                 if (instructors.length < 1) {
-                    res.status(404).json({"result": "not found"});
+                    res.status(404).json({"result": "No registered instructors for activity " + req.params.activity_id});
                 }
                 else
                     res.json({"result": objResponse})
@@ -78,16 +82,26 @@ module.exports = app => {
             }).catch(e => {
                 res.json({"error": e.toLocaleString()});
             });
-            c
-        });
+
+        })
+        .put((req, res) => {
+
+
+        }).catch(e => {
+        res.json({"error": e.toLocaleString()})
+    })
 
     app.route("/activities/:activity_id")
         .get((req,res)=>{
             const activity_id=req.params.activity_id;
+
+
             db.knex("activity")
                 .join("station as s", "s.id", "activity.station_id")
-                .join("instructor_activity  as ins_a", "ins_a.activity_id", "activity.id")
-                .join("person as p", "p.id", "ins_a.instructor_id")
+                .leftJoin("instructor_activity  as ins_a", "ins_a.activity_id", "activity.id")
+
+                .leftJoin("person as p", "p.id", "ins_a.instructor_id")
+
                 .where({"activity.id": req.params.activity_id})
                 .select("p.name as name ", "s.name as station_name", "activity.label_activity", "activity.description", "activity.start_date", "activity.end_date").then(instructors => {
 
@@ -111,6 +125,7 @@ module.exports = app => {
                 else
                     res.json({"result": objResponse})
             });
+
         })
         .put((req,res)=>{
             const activity_id = req.params.activity_id;
@@ -137,6 +152,8 @@ module.exports = app => {
                 .where({"activity.id": activity_id})
                 .del().then(r => {
                 res.json(r);
+            }).catch(e => {
+                res.json({"error": e.toLocaleString()});
             })
         })
 
