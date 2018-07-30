@@ -1,0 +1,471 @@
+{
+	"info": {
+		"_postman_id": "fe3f5646-64c6-62ab-98cb-e6831a568c0b",
+		"name": "cbva-api",
+		"description": "Details to invocation public (for now) api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "persons",
+			"description": "Should be the master entity,when all the process point to",
+			"item": [
+				{
+					"name": "attendances",
+					"description": "",
+					"item": [
+						{
+							"name": "Person Attendances",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Nn0.UGaBTvnmRRsY6l38rRViRKUrK5QqsqN_r4e7CA4s5XK"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": "http://localhost:3000/persons/405/attendances",
+								"description": "Obtain attendances from person"
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "dfcf35d7-df17-43b9-b15d-fbbe8c6354e7",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "db29132d-a324-429d-b268-32cc1ae308d3",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Lists Persons",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Nn0.UGaBTvnmRRsY6l38rRViRKUrK5QqsqN_r4e7CA4s5XK"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"acronim\":\"Comisión Directiva\",\n\"description\":\"Son todos\"\n}"
+						},
+						"url": "http://localhost:3000/persons",
+						"description": "List of ranks"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Person",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Nn0.UGaBTvnmRRsY6l38rRViRKUrK5QqsqN_r4e7CA4s5XK"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Juan\",\n\t\"cin\":\"2333313\"\n}"
+						},
+						"url": "http://localhost:3000/persons",
+						"description": "List of ranks"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Person information",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Nn0.UGaBTvnmRRsY6l38rRViRKUrK5QqsqN_r4e7CA4s5XK"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"name\":\"ENrique M. Talavera\",\n\"cin\":\"4.174.756\"\n}"
+						},
+						"url": "http://localhost:3000/persons/404",
+						"description": "Person details"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "attendances",
+			"description": "We associate person with activity",
+			"item": [
+				{
+					"name": "Get All Posible Attendances",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Nn0.UGaBTvnmRRsY6l38rRViRKUrK5QqsqN_r4e7CA4s5XK"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:3000/attendances",
+						"description": "We register person and associated instructor for activities"
+					},
+					"response": []
+				},
+				{
+					"name": "Register attendances",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Nn0.UGaBTvnmRRsY6l38rRViRKUrK5QqsqN_r4e7CA4s5XK"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"person_id\":407,\n\t\"activity_id\":2,\n\t\"start_date\":\"2018-07-21T12:22:21\",\n\t\"end_date\":\"2018-07-21T16:07:21\"\n}"
+						},
+						"url": "http://localhost:3000/attendances",
+						"description": "Register attendance"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "activities",
+			"description": "Activity to be attended by persons\n\n+----+--------------------+\n| id | name_type_activity |\n+----+--------------------+\n|  2 | Practica Especial  |\n|  3 | Practica GERA      |\n|  4 | Practica MATPEL    |\n|  5 | Practica NOrmal    |\n+----+--------------------+\n",
+			"item": [
+				{
+					"name": "Instuctors",
+					"description": "",
+					"item": [
+						{
+							"name": "Get Registered instructors for activity",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Nn0.UGaBTvnmRRsY6l38rRViRKUrK5QqsqN_r4e7CA4s5XK"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"acronim\":\"Comisión Directiva\",\n\"description\":\"Son todos\"\n}"
+								},
+								"url": "http://localhost:3000/activities/1/instructors",
+								"description": "Get all instructors registerd for activity"
+							},
+							"response": []
+						},
+						{
+							"name": "Register instructor for activity",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Nn0.UGaBTvnmRRsY6l38rRViRKUrK5QqsqN_r4e7CA4s5XK"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"instructor_id\":405,\n\"start_activity\":\"2018-07-21T14:46:21\",\n\"end_activity\":\"2018-07-21T15:00:21\"\n}"
+								},
+								"url": "http://localhost:3000/activities/2/instructors",
+								"description": "Register instructors for activities"
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "List Activities",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Nn0.UGaBTvnmRRsY6l38rRViRKUrK5QqsqN_r4e7CA4s5XK"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Juan\",\n\t\"cin\":\"2333313\"\n}"
+						},
+						"url": "http://localhost:3000/activities",
+						"description": "List of registered activities"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Activity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Nn0.UGaBTvnmRRsY6l38rRViRKUrK5QqsqN_r4e7CA4s5XK"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"station_id\":1,\n \"label_activity\":\"Actividad recreacional\",\n \"description\":\"Iniciaremos las practicas divertidas\",\n \"activity_type\":3,\n \"start_date\":\"2018-07-21T14:00:00\",\n \"end_date\":\"2018-07-21T17:00:20\"\n}"
+						},
+						"url": "http://localhost:3000/activities",
+						"description": "Create new activity"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Activity",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Nn0.UGaBTvnmRRsY6l38rRViRKUrK5QqsqN_r4e7CA4s5XK"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n\"station_id\":2,\n\"label_activity\":\"Something fun\",\n\"description\":\"Actualizando actividad\",\n\"activity_type\":3,\n\"start_activity\":\"2018-07-21T12:21:12\",\n\"end_activity\":\"2018-07-21T16:23:32\"\n}"
+						},
+						"url": "http://localhost:3000/activities/2",
+						"description": "Update Activity"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5ec83bca-a8df-490b-a1c0-44ca6e0705be",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0575b66a-9431-44fc-9db0-5e8cf3966348",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "firefighters",
+			"description": "",
+			"item": [
+				{
+					"name": "attendances",
+					"description": "",
+					"item": [],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Get All Firefighters",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Nn0.UGaBTvnmRRsY6l38rRViRKUrK5QqsqN_r4e7CA4s5XK"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"acronim\":\"Comisión Directiva\",\n\"description\":\"Son todos\"\n}"
+						},
+						"url": "http://localhost:3000/firefighters",
+						"description": "List of firefighters"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Information about Firefighter",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Nn0.UGaBTvnmRRsY6l38rRViRKUrK5QqsqN_r4e7CA4s5XK"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"acronim\":\"Comisión Directiva\",\n\"description\":\"Son todos\"\n}"
+						},
+						"url": "http://localhost:3000/firefighters/405",
+						"description": "Firefighter details"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7f8f182a-4657-4fba-98b8-7067c175dfad",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae893878-1047-4e1f-97c4-54ad5cac09aa",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "ranks",
+			"description": "",
+			"item": [
+				{
+					"name": "Update rank",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Nn0.UGaBTvnmRRsY6l38rRViRKUrK5QqsqN_r4e7CA4s5XK"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"acronim\":\"Comisión Directiva\",\n\"description\":\"Son todos\"\n}"
+						},
+						"url": "http://localhost:3000/ranks/2",
+						"description": "Update specific rank information"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All ranks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Nn0.UGaBTvnmRRsY6l38rRViRKUrK5QqsqN_r4e7CA4s5XK"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"acronim\":\"Comisión Directiva\",\n\"description\":\"Son todos\"\n}"
+						},
+						"url": "http://localhost:3000/ranks",
+						"description": "List of ranks"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
