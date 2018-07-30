@@ -30,12 +30,12 @@ module.exports = app => {
             const body = req.body;
 
             db.knex("activity").insert({
-                station_id: 1,
+                station_id: body.station_id,
                 label_activity:body.label_activity,
                 description: body.description,
                 activity_type: body.activity_type,
-                start_date: moment(body.start_date,"YYYY-MM-DDTHH:mm:ss").format("YYYY-MM-DD HH:mm:ss"),
-                end_date: moment(body.end_date,"YYYY-MM-DDTHH:mm:ss").format("YYYY-MM-DD HH:mm:ss")
+                start_date: moment(body.start_date, "YYYY-MM-DDTHH:mm:ss").isValid() ? moment(body.start_date, "YYYY-MM-DDTHH:mm:ss").format("YYYY-MM-DD HH:mm:ss") : null,
+                end_date: moment(body.end_date, "YYYY-MM-DDTHH:mm:ss").isValid() ? moment(body.end_date, "YYYY-MM-DDTHH:mm:ss").format("YYYY-MM-DD HH:mm:ss") : null
 
             }).then(re => {
                 res.json(re);
@@ -77,7 +77,12 @@ module.exports = app => {
         .post((req, res) => {
             let activity_id = req.params.activity_id;
             console.log(JSON.stringify(req.body));
-            db.knex("instructor_activity").insert(req.body).then(result => {
+            db.knex("instructor_activity").insert({
+                "instructor_id": req.body.instructor_id,
+                "activity_id": activity_id,
+                "start_activity": moment(req.body.start_activity, "YYYY-MM-DDTHH:mm:ss").isValid() ? moment(req.body.start_activity, "YYYY-MM-DDTHH:mm:ss").format("YYYY-MM-DD HH:mm:ss") : null,
+                'end_activity': moment(req.body.end_activity, "YYYY-MM-DDTHH:mm:ss").isValid() ? moment(req.body.end_activity, "YYYY-MM-DDTHH:mm:ss").format("YYYY-MM-DD HH:mm:ss") : null
+            }).then(result => {
                 res.json(result);
             }).catch(e => {
                 res.json({"error": e.toLocaleString()});
@@ -87,9 +92,7 @@ module.exports = app => {
         .put((req, res) => {
 
 
-        }).catch(e => {
-        res.json({"error": e.toLocaleString()})
-    })
+        })
 
     app.route("/activities/:activity_id")
         .get((req,res)=>{
@@ -130,15 +133,16 @@ module.exports = app => {
         .put((req,res)=>{
             const activity_id = req.params.activity_id;
             const body = req.body;
+            console.log(moment(body.start_activity, "YYYY-MM-DDTHH:mm:ss").format("YYYY-MM-DD HH:mm:ss"));
             db.knex("activity")
                 .where({"activity.id": activity_id})
                 .update({
-                    station_id: 1,
+                    station_id: body.station_id,
                     label_activity: body.label_activity,
                     description: body.description,
                     activity_type: body.activity_type,
-                    start_date: moment(body.start_date, "YYYY-MM-DDTHH:mm:ss").format("YYYY-MM-DD HH:mm:ss"),
-                    end_date: moment(body.end_date, "YYYY-MM-DDTHH:mm:ss").format("YYYY-MM-DD HH:mm:ss")
+                    start_date: moment(body.start_activity, "YYYY-MM-DDTHH:mm:ss").format("YYYY-MM-DD HH:mm:ss"),
+                    end_date: moment(body.end_activity, "YYYY-MM-DDTHH:mm:ss").format("YYYY-MM-DD HH:mm:ss")
 
                 }).then(re => {
                 res.json(re);

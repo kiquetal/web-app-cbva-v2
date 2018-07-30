@@ -21,6 +21,13 @@ module.exports = app => {
     app.route("/persons")
         .get((req, res) => {
             db.knex("person").select("*").then(persons => res.json({"result": persons}));
+        })
+        .post((req, res) => {
+            db.knex("person").insert(req.body).then(r => {
+                res.json(r);
+            }).catch(e => {
+                res.json({"error": e.toLocaleString()})
+            })
         });
 
 
@@ -69,9 +76,7 @@ module.exports = app => {
         .post((req, res) => {
 
 
-        }).catch(e => {
-        res.json({"error": e.toLocaleString()})
-    })
+        })
 
     /**
      * @api {get} /persons/:id  Details from Person

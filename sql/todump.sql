@@ -37,7 +37,7 @@ CREATE TABLE `activity` (
   KEY `activity_station_id_fk` (`station_id`),
   CONSTRAINT `activity_station_id_fk` FOREIGN KEY (`station_id`) REFERENCES `station` (`id`),
   CONSTRAINT `activity_type_fk` FOREIGN KEY (`activity_type`) REFERENCES `activity_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `activity` (
 
 LOCK TABLES `activity` WRITE;
 /*!40000 ALTER TABLE `activity` DISABLE KEYS */;
-INSERT INTO `activity` (`station_id`, `description`, `activity_type`, `start_date`, `end_date`, `label_activity`, `id`, `threshold`) VALUES (1,'probando put',5,'2018-07-22 21:10:23','2018-07-22 22:40:23','enseñando a los nuevos',1,30);
+INSERT INTO `activity` (`station_id`, `description`, `activity_type`, `start_date`, `end_date`, `label_activity`, `id`, `threshold`) VALUES (1,'probando put',5,'2018-07-22 21:10:23','2018-07-22 22:40:23','enseñando a los nuevos',1,30),(2,'Actualizando actividad',3,'2018-07-21 12:21:12','2018-07-21 16:23:32','Something fun',2,30),(1,'tercera actividad',2,'2018-07-22 21:21:21','2018-07-22 23:12:21','probando cosas',3,30),(1,'Iniciaremos las practicas divertidas',3,'2018-07-21 14:00:00','2018-07-21 17:00:20','Actividad recreacional',4,30);
 /*!40000 ALTER TABLE `activity` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,10 +86,11 @@ CREATE TABLE `attendance_activity` (
   `activity_id` int(11) NOT NULL,
   `start_activity` datetime DEFAULT NULL,
   `end_activity` datetime DEFAULT NULL,
+  `is_instructor` tinyint(1) DEFAULT 0,
   `present` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`person_id`,`activity_id`),
   KEY `attendance_activity_activities_id_fk` (`activity_id`),
-  CONSTRAINT `attendance_activity_firefighter_person_id_fk` FOREIGN KEY (`person_id`) REFERENCES `firefighter` (`person_id`)
+  CONSTRAINT `attendance_activity_person_id_fk` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -99,7 +100,7 @@ CREATE TABLE `attendance_activity` (
 
 LOCK TABLES `attendance_activity` WRITE;
 /*!40000 ALTER TABLE `attendance_activity` DISABLE KEYS */;
-INSERT INTO `attendance_activity` (`person_id`, `activity_id`, `start_activity`, `end_activity`, `present`) VALUES (403,1,'2018-07-21 23:05:32','2018-07-21 23:20:34',0),(404,1,'2018-07-22 20:10:32','2018-07-22 21:20:12',1);
+INSERT INTO `attendance_activity` (`person_id`, `activity_id`, `start_activity`, `end_activity`, `is_instructor`, `present`) VALUES (366,1,'2018-07-22 21:12:32','2018-07-22 21:38:21',1,0),(405,1,'2018-07-22 21:22:21','2018-07-22 22:21:21',1,1),(405,2,'2018-07-21 14:46:21','2018-07-21 15:00:21',1,0),(407,2,'2018-07-21 12:22:21','2018-07-21 16:07:21',0,1),(436,1,'2018-07-22 21:12:32','2018-07-22 21:38:21',1,0),(436,2,NULL,NULL,0,0);
 /*!40000 ALTER TABLE `attendance_activity` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -118,11 +119,24 @@ DELIMITER ;;
 
      DECLARE minutes INT;
      DECLARE thresold INT;
+     DECLARE start_date_activity DATETIME;
+     DECLARE end_date_activity DATETIME;
 
      SELECT threshold from activity WHERE activity.id=NEW.activity_id INTO thresold;
+     SELECT start_date from activity WHERE activity.id=NEW.activity_id INTO start_date_activity;
+     SELECT end_date from activity WHERE activity.id=NEW.activity_id INTO end_date_activity;
+
      SELECT TIMESTAMPDIFF(minute,NEW.start_activity,NEW.end_activity) INTO minutes;
 
-     IF (NEW.end_activity IS NOT NULL ) THEN
+
+     IF (NEW.start_activity < start_date_activity OR NEW.end_activity >end_date_activity) THEN
+
+         SIGNAL SQLSTATE '02000' SET MESSAGE_TEXT = 'Your input date are invalids,check TABLE ACTIVITY ';
+
+       end if ;
+
+
+       IF (NEW.end_activity IS NOT NULL ) THEN
      IF (minutes < 0) then
        SIGNAL SQLSTATE '02000' SET MESSAGE_TEXT = 'Start activity must be lower than end_activity';
 
@@ -156,9 +170,23 @@ DELIMITER ;;
 
       DECLARE minutes INT;
       DECLARE thresold INT;
+      DECLARE start_date_activity DATETIME;
+      DECLARE end_date_activity DATETIME;
+
+      SELECT start_date from activity WHERE activity.id=NEW.activity_id INTO start_date_activity;
+      SELECT end_date from activity WHERE activity.id=NEW.activity_id INTO end_date_activity;
 
       SELECT threshold from activity WHERE activity.id=NEW.activity_id INTO thresold;
       SELECT TIMESTAMPDIFF(minute,NEW.start_activity,NEW.end_activity) INTO minutes;
+
+      IF (NEW.start_activity < start_date_activity OR NEW.end_activity >end_date_activity) THEN
+
+        SIGNAL SQLSTATE '02000' SET MESSAGE_TEXT = 'Your input date are invalids,check TABLE ACTIVITY ';
+
+      end if ;
+
+
+
 
       IF (NEW.end_activity IS NOT NULL ) THEN
         IF (minutes < 0) then
@@ -168,7 +196,7 @@ DELIMITER ;;
 
         IF (minutes>=thresold) THEN
           SET NEW.present=true;
-        ELSE 
+        ELSE
           SET NEW.present=false;
         END IF ;
 
@@ -293,6 +321,8 @@ DROP TABLE IF EXISTS `instructor_activity`;
 CREATE TABLE `instructor_activity` (
   `instructor_id` int(11) DEFAULT NULL,
   `activity_id` int(11) DEFAULT NULL,
+  `start_activity` datetime DEFAULT NULL,
+  `end_activity` datetime DEFAULT NULL,
   UNIQUE KEY `instructor_activity_instructor_id_activity_id_pk` (`instructor_id`,`activity_id`),
   KEY `instructor_activity_activity_id_fk` (`activity_id`),
   CONSTRAINT `instructor_activity_activity_id_fk` FOREIGN KEY (`activity_id`) REFERENCES `activity` (`id`),
@@ -306,9 +336,81 @@ CREATE TABLE `instructor_activity` (
 
 LOCK TABLES `instructor_activity` WRITE;
 /*!40000 ALTER TABLE `instructor_activity` DISABLE KEYS */;
-INSERT INTO `instructor_activity` (`instructor_id`, `activity_id`) VALUES (366,1),(367,1);
+INSERT INTO `instructor_activity` (`instructor_id`, `activity_id`, `start_activity`, `end_activity`) VALUES (366,1,'2018-07-22 21:12:32','2018-07-22 21:38:21'),(436,1,'2018-07-22 21:12:32','2018-07-22 21:38:21'),(405,1,'2018-07-22 21:22:21','2018-07-22 22:21:21'),(405,2,'2018-07-21 14:46:21','2018-07-21 15:00:21');
 /*!40000 ALTER TABLE `instructor_activity` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER chk_before_insert_instructor BEFORE INSERT on instructor_activity
+    FOR EACH ROW
+    BEGIN
+
+      DECLARE start_date_activity DATETIME;
+      DECLARE end_date_activity DATETIME;
+
+      SELECT start_date from activity WHERE activity.id=NEW.activity_id INTO start_date_activity;
+      SELECT end_date from activity WHERE activity.id=NEW.activity_id INTO end_date_activity;
+
+      IF (NEW.start_activity < start_date_activity OR NEW.end_activity >end_date_activity) THEN
+
+        SIGNAL SQLSTATE '02000' SET MESSAGE_TEXT = 'Your input date are invalids,check TABLE ACTIVITY ';
+
+      end if ;
+
+    end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER chk_present_instructor_attendance AFTER INSERT on instructor_activity
+    FOR EACH ROW
+    BEGIN
+            INSERT into attendance_activity(person_id, activity_id,start_activity,end_activity,is_instructor) VALUES (new.instructor_id,NEW.activity_id,New.start_activity,NEW.end_activity,true );
+
+    end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER update_present_instructor_attendance AFTER UPDATE on instructor_activity
+    FOR EACH ROW
+    BEGIN
+      UPDATE attendance_activity
+        SET start_activity=NEW.start_activity,end_activity=NEW.end_activity
+      WHERE person_id=NEW.instructor_id AND attendance_activity.activity_id=NEW.activity_id;
+    end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `person`
@@ -322,7 +424,7 @@ CREATE TABLE `person` (
   `name` varchar(100) DEFAULT NULL,
   `cin` varchar(12) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=436 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=438 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -331,7 +433,7 @@ CREATE TABLE `person` (
 
 LOCK TABLES `person` WRITE;
 /*!40000 ALTER TABLE `person` DISABLE KEYS */;
-INSERT INTO `person` (`id`, `name`, `cin`) VALUES (1,'Pedro Jaime Logan Keene',''),(2,'Tomas Florentin',''),(3,'Amado Adolfo Sanabria Flecha',''),(4,'Juan Carlos Gamba Sosa',''),(5,'Alberto Chamorro',''),(6,'Victor Manuel Sanabria Flecha',''),(7,'Luis Pellegrini',''),(8,'Carlos Sanabria Flecha',''),(9,'Juvencio Toñanez',''),(10,'Luis Fernando Heisecke',''),(11,'Jose Caceres',''),(12,'Pierre Alvaro Florentin Diaz',''),(13,'Raul De los Santos Abraham Fernandez ',''),(14,'Liz Gini',''),(15,'Enrique Renfelt',''),(16,'Rolland Hillar',''),(17,'Ermes Raul Villa Caceres',''),(18,'Mario Barrientos',''),(19,'Alberto Gustavo Gomez Arevalos',''),(20,'Fernando Javier Alderete Insfran',''),(21,'Victor Hugo Liuzzi Encina','1,091,002'),(22,'Luis Fernando Garcia Britez',''),(23,'Cesar Daniel Adorno Jacquet',''),(24,'Augusto Ruben Rodas Varela',''),(25,'Eduardo Andres Sanabria Duarte',''),(26,'Marcos Lezcano Sachelaridi','1,795,298'),(27,'Jacinto Riera',''),(28,'Natalia Torres',''),(29,'Uber Antonio Vera','3,542,540'),(30,'Pedro Benitez',''),(31,'Julio Acosta',''),(32,'Fidel Villalba',''),(33,'Juan Jara',''),(34,'Calixto Echeverria',''),(35,'Serafin Antonio Roche Pereira',''),(36,'Diana Romero',''),(37,'Marcos Ramon Torres Ortiz','1,365,318'),(38,'Jorgelina Chaparro Martinez',''),(39,'Ysaac Pedro De Carvalho Vallejos',''),(40,'Luis Alberto Benitez Garcia',''),(41,'Alfredo Muñoz',''),(42,'Aldo Hermosilla',''),(43,'Graciela Alcoba de Cabrera ',''),(44,'Heriberto Ceferino Candia',''),(45,'Carlos Herder Olguin Romero',''),(46,'Hernan Gustavo Olmedo Armengol',''),(47,'Victor Arnaldo Perineti Gonzalez',''),(48,'Veronica Liliana Guanes Ferreira',''),(49,'Maria Lorena Gonzalez Pereira',''),(50,'Sergio Pastor Gimenez Arias',''),(51,'Marta Beatriz Estigarribia Ruiz Diaz',''),(52,'Eduardo Ramon Lugo Ledesma',''),(53,'Alex Adorno ',''),(54,'Nelcy Beatriz Quevedo Allende',''),(55,'Aquiles Leon',''),(56,'Carlos David Britez Montiel',''),(57,'Juan Pablo Gomez Lacentre',''),(58,'Felix Guerrero',''),(59,'Christian Lisandro Dupland Amarilla ',''),(60,'Dirce Magdalena Yegros Aldama',''),(61,'Cynthia Natalia Gonzalez Duarte',''),(62,'Ruben Antonio Centurion Medina',''),(63,'Erik Cattebeke Gonzalez',''),(64,'Abel Argentino Ledesma Gómez',''),(65,'Oscar Jose Pino (h) ',''),(66,'Francisco Javier R. Gomez Samaniego','1,845,836'),(67,'Gloria Anahi Zaldivar Leon ',''),(68,'Claudia Andrea Salazar Zilich',''),(69,'Claudia Carolina Barua Leguizamon ',''),(70,'Horacio Jose Gonzalez Pereira',''),(71,'Sheila Martinez',''),(72,'Pablo Cabral',''),(73,'Santiago Raul Vazquez Gonzalez',''),(74,'Mariano Cattebeke Blaires',''),(75,'Luis Alberto Medina Ortiz','423,535'),(76,'Federico Ramon Garcia Britez',''),(77,'Angel Gabriel Gill Barreto','804,779'),(78,'Carlos Alberto Caballero','3,983,015'),(79,'Eris Dario Cabrera Nuñez (+)',''),(80,'Ruben Antonio Garcete Ferrari',''),(81,'Marcos David Reyes',''),(82,'Juan Esteban Florentin Diaz',''),(83,'Carla Ivana Hernandez Vega',''),(84,'Maria de Lujan Mongelos Gimenez',''),(85,'Walter Suarez',''),(86,'Arturo Santiago Nuñez Orue',''),(87,'Israel Elias Rodrigo Noldin',''),(88,'Alcides Ariel Ferreira','2,387,913'),(89,'Pedro Antonio Rejala Duarte',''),(90,'Jorge Luis Borja',''),(91,'Eduardo David Cabrera Nuñez',''),(92,'Fredy Alberto Garcia Aquino',''),(93,'Hilda Acosta de Ledesma',''),(94,'Catterine Cattebeke',''),(95,'Liz Colman',''),(96,'Narciso Fleitas',''),(97,'Fulvia Pereira de Gonzalez',''),(98,'Carlos Alberto Medina Ortiz',''),(99,'Carlos Samaniego Ruiz Diaz',''),(100,'Edgar Manuel Faria Ferreira',''),(101,'Rossana Maria Alcaraz Orrego',''),(102,'Luis Fernando Fleitas Esteche',''),(103,'Diego Francisco Moreira Telvez','4,814,491'),(104,'Osmar Ramon Moreno Cespedes',''),(105,'Nilsa Marlene Chavez Delgado',''),(106,'Sara Rosa Elizabeth Diaz',''),(107,'Sylvia Haydée Gimenez Scala',''),(108,'Marcos Herminio Galeano Flores ',''),(109,'Nelida Ma. De los Angeles Caballero M.',''),(110,'Pablo Reinero Galeano Sanabria ',''),(111,'Naida Susana Meza Riquelme','3,789,939'),(112,'Abel Mancuello ',''),(113,'Sonia Mancuello ',''),(114,'Ricardo Saldivar ',''),(115,'Romina Morinigo ',''),(116,'Jorge Luis Rodriguez Ayala',''),(117,'Josefina Concepcion Noguera Hermosa',''),(118,'Sergio Gomez Lacentre',''),(119,'Gabriela Isabel Arce Dolz',''),(120,'Fatima Alfonso',''),(121,'Fernando Rene Paez Meza',''),(122,'Marie Florentin (+)',''),(123,'Francisco Antonio Meza',''),(124,'Claudio David Cabañas Orue','3,475,021'),(125,'Raquel Hermosa','1,454,683'),(126,'Fernando Florentin Diaz',''),(127,'Francisco Javier Uzabal Escurra',''),(128,'Santiago Alberto Ledesma Benegas','2,430,714'),(129,'Adolfo Enmanuel Alvarez',''),(130,'Victor Raul Franco Rodas',''),(131,'David Cena',''),(132,'Guillermo Adrian Cairet Dietrich',''),(133,'Lilian Vera',''),(134,'Fernando Saggia ',''),(135,'Diego Garcia',''),(136,'Tania Villagra',''),(137,'Rosalba Yuki Akita Canela',''),(138,'Gustavo David Paiva Acosta',''),(139,'Edgar Britez Ayala','1,951,057'),(140,'Pablo Daniel Arevalos Nessi',''),(141,'Hector Fabian Britez Ayala',''),(142,'Denis Condoretty','2,330,622'),(143,'Esteban Espinoza',''),(144,'Humberto Fabian Vera Martinez',''),(145,'Isabel Palacios',''),(146,'Marcos Cristian Villamayor Huerta',''),(147,'Rosalia Saggia',''),(148,'Julio Gonzalez',''),(149,'Luis Miguel Ruiz Diaz Ayala',''),(150,'Osvaldo Sanabria',''),(151,'Ruth Noemi Servin Lavin ',''),(152,'Juliana Concepcion Garcia',''),(153,'Alfonso Aguilar',''),(154,'Augusto Lugo ',''),(155,'Jose Maria Mieres',''),(156,'Gerardo Ramon Melgarejo ',''),(157,'Cristian Melgarejo ',''),(158,'Ana Elizabeth Britez Ayala',''),(159,'Eduardo Demestri',''),(160,'Alfredo Crispin Da Rosa Miranda','2,084,664'),(161,'Leonardo Jose Maria Cardenas Alfonso',''),(162,'Jose Zabala',''),(163,'Gualberto Luis Ramon Martinez ',''),(164,'Maria Laura Villagra Ferreira',''),(165,'Sara Cabrera ',''),(166,'Clara Obelar',''),(167,'Norma Leguizamon',''),(168,'Jose Antonio Montorfano Chileno',''),(169,'Victor Ojeda',''),(170,'Juana Medina',''),(171,'Gloria Arza Riveros',''),(172,'Vicente Lezcano Sachelaridi',''),(173,'Lionel Maria Cristaldo Rienzi',''),(174,'Oscar Lovera',''),(175,'Oscar Pino (p) ',''),(176,'Julio Estigarribia',''),(177,'Sofia Karina Cardozo Sanchez',''),(178,'Victor Meza',''),(179,'Alfredo Zelaya',''),(180,'Gustavo Alcaraz',''),(181,'Martha Raquel Cristaldo Rodriguez',''),(182,'Sara Mendez',''),(183,'Zully Peralta',''),(184,'Yeny Stella Sosa Gonzalez',''),(185,'Francisca Pineda Balmaceda',''),(186,'Carmen Pineda Balmaceda',''),(187,'Iris Marlene Mareco Maidana',''),(188,'Emilio David Olmedo Hermosilla','3,649,692'),(189,'Horacio Centurion Princigalli ',''),(190,'Magno Alfredo Castillo Fernandez',''),(191,'Cesar Gonzalez ',''),(192,'Domingo Eduardo Mora Ramirez','1,148,202'),(193,'Veronica Soledad Ramirez',''),(194,'Raquel Iriondo Martinez',''),(195,'Pablo Habib Leston',''),(196,'Juan Rafael Campizz Gonzalez',''),(197,'Maria Auxiliadora Ayala Galeano',''),(198,'Emilce Yanina Cardozo Cespedes',''),(199,'Carlos Jose Volling Lezcano',''),(200,'Mirtha Liliana Ortola Etcheverry',''),(201,'Sonia Raquel Volling Lezcano',''),(202,'Jorge Inocencio Rodriguez',''),(203,'Jose Maria Segovia Gonzalez',''),(204,'Alberto Enriquez',''),(205,'Cruz Mariel Graciela Perez Amarilla','3,659,606'),(206,'Pedro Gilberto Medina Centurion ',''),(207,'Osvaldo Daniel Fretes Carmagnola',''),(208,'Cristian David Vera Baez',''),(209,'Rogelio de la Cruz Quiñonez Vargas',''),(210,'Victor Daniel Gutierrez Gallardo',''),(211,'Ines Victoria Fariña Lopez',''),(212,'Roberto Benitez Ortiz',''),(213,'Jorge Adrian Diaz',''),(214,'Andrea Celeste Rodriguez Cantero',''),(215,'Marcos Ledesma Colman',''),(216,'Rolando Jose Maidana  ','7,059,412'),(217,'Jorge Dario David Gomez Perez',''),(218,'Daniel Ferszt Caceres',''),(219,'Willian Rios',''),(220,'Jorge Antonio Gonzalez','4,352,143'),(221,'Blacia Britez',''),(222,'Sergio Fabian Almada Giménez',''),(223,'Adan Julián Sosa González',''),(224,'Jorge Raúl Giménez Alvarez',''),(225,'Marcos Ramón Sosa Donsert',''),(226,'Frida Geraldina González','3,217,398'),(227,'Lilian María Marta González González',''),(228,'Alvaro Morinigo',''),(229,'Arnaldo González',''),(230,'Guido Rene González Hermosa',''),(231,'Hugo Javier Ortiz Romero',''),(232,'Laura Gauto',''),(233,'Eliana Cabrera',''),(234,'Carlos Sebastian Valdovinos','3,198,753'),(235,'Lidia Carolina Gauto',''),(236,'José M. Díaz Ayala',''),(237,'Luis Mancuello',''),(238,'Cristian David Kadomatsu',''),(239,'Sandra Paola Rolón',''),(240,'Silvia Susana Silva','3,634,800'),(241,'Ana Martínez Balcazar',''),(242,'Juan Aquino',''),(243,'Tania M. Barreto López',''),(244,'Alexandre Diel',''),(245,'Carlos Joaquín Talavera Fernández',''),(246,'Diego Luis Insfran Segovia',''),(247,'Omar Dario Sanabria Núñez',''),(248,'Sara Yohana González Olmedo',''),(249,'Victor Daniel Escurra Pereira',''),(250,'Victor Hugo Esquivel Rolón',''),(251,'Cinthia Elince Ayala Giménez  ',''),(252,'Pedro Eduardo Fernandez Garcia',''),(253,'Felix Barreto',''),(254,'Angel Rafael Rojas Aveiro',''),(255,'Adrian Martinez',''),(256,'Juan Carlos Bellassai Gauto',''),(257,'Juan Andres del Puerto',''),(258,'Humberto Daniel Riveiro Gonzalez',''),(259,'Israel Ulises Melgarejo Estigarribia','4,507,487'),(260,'Maria Jose Ljubetic',''),(261,'Eduardo Douglas',''),(262,'Lorenza Pereira',''),(263,'Nelson Uribe',''),(264,'Liliana Elizabeth Esquivel Rotela',''),(265,'Hector Morinigo',''),(266,'Victor Amarilla',''),(267,'Jorge Arce',''),(268,'Francisco Benitez',''),(269,'Jonathan David Tompson Cohene','3,806,850'),(270,'Denys Damian Gómez Bernal',''),(271,'Israel de Jesús Cardozo Sanabria',''),(272,'Guillermo Osvaldo Taboada Romei',''),(273,'Alberto Federico Rolón Jara ',''),(274,'Cesar Machuca García',''),(275,'Ciro Nicolás Figueroa Jave',''),(276,'Guillermo Enrique Efrain Alarcon Maldonado',''),(277,'Erico Isaac Caballero Verón',''),(278,'Juan José Gaona Lerea',''),(279,'Alvaro Rodrigo Riveros','4,908,142'),(280,'José Manuel Cuevas Zarate',''),(281,'Rodrigo de Jesús Villagra Mora',''),(282,'Benigno Leonardo Ortiz Estigarribia',''),(283,'Orlando Javier Ortega Molinas',''),(284,'Víctor Manuel David Ortiz ',''),(285,'Luis Arnaldo Chavez Valdez',''),(286,'Alberto Martin Garay',''),(287,'José Antonio Ruíz Díaz Medina ',''),(288,'Jazmin Dumilia Valdovinos Mora',''),(289,'Carlos Alberto Baquer Silvero ',''),(290,'Giovanna Leocadia Viola D´Aquino ',''),(291,'Natasha María Oliveira y Silva Gariazu',''),(292,'Carlos Barrios Sartorio ',''),(293,'Jorge Ribas Careaga',''),(294,'Luis Rombert',''),(295,'Maria Alexandra Fernandez Acuña',''),(296,'Gustavo Adolfo Ozuna Amarilla',''),(297,'Francisco Elias Vera Dominguez',''),(298,'Diego Javier Lugo Ozorio','4,382,812'),(299,'Fernando Ramon Peralta Fernandez',''),(300,'Ruben Samuel Recalde Alarcon',''),(301,'Luis Fernando Barrios Fracchia',''),(302,'Bianca Maria Bazan Centurion',''),(303,'Liz Andrea Ramirez Diaz','5,162,140'),(304,'Ariel Mateo Orue Rodriguez',''),(305,'Anibal David Rojas Martinez',''),(306,'Oscar David Noguera Oviedo','4,662,233'),(307,'Sebastian Augusto Penayo Romero',''),(308,'Helga Rosa Welcher Lacognata',''),(309,'Esteban Ramon Amarilla Gariazu','4,219,706'),(310,'Ivan Ismael Insfran Torres',''),(311,'Javier Roman Brizuela Gomez',''),(312,'Alexandra Elizabeth Zarate Chavez',''),(313,'Delia Carolina Lezcano Astigarraga',''),(314,'Arnaldo Silverio Bordon Fleitas','5,023,500'),(315,'Richard Alison Benitez Flor',''),(316,'Pedro Daniel Acosta Ruiz Diaz',''),(317,'Pedro Giovanni Andino Martinez','3,668,267'),(318,'Emilio Marcelo Gonzalez Barrios',''),(319,'Justo Salomon Ocampos Ramirez',''),(320,'Juan Francisco Candia Escobar',''),(321,'Peter Braulio Sosa Dominguez',''),(322,'Pedro Leonardo Cabral Diaz',''),(323,'Arnaldo Andres Vera Aveiro',''),(324,'Rickx Fabian Roman Romero',''),(325,'Yanina Del Mar Mendoza Torres',''),(326,'Ruben Antonio Careaga Meza',''),(327,'Lucas Emmanuel Aguilar Galeano',''),(328,'Anna Victoria Wickzén Rojas',''),(329,'Rebeca Andrea Tamara Lugo Mendoza',''),(330,'César Sebastián Chávez Fernández',''),(331,'Manuela Edith Retamar Almirón',''),(332,'Robinson Richard Moudelle Cabrera',''),(333,'Pablo Amadeo Esquivel Cantero',''),(334,'Rodrigo Marcos Agustin Giménez Morales',''),(335,'Rodrigo Alfredo Diaz Vera',''),(336,'Ylsse Nathaly Jazmín Cabral',''),(337,'Hugo Daniel Recalde Pavon','1,242,328'),(338,'Pablo Fabián Benítez Flor',''),(339,'Karen Reseda Aquino Orué',''),(340,'Jonathan Enrique Rojas Arias',''),(341,'José Infante Rivarola Olmeda',''),(342,'Abel Ulises Martinez Peloso',''),(343,'Ruben Dario Acosta Gomez (+)',''),(344,'Juan Arce',''),(345,'Jose Dure',''),(346,'José Mauricio Espínola',''),(347,'Natalia Alvarenga',''),(348,'José Luis Moudelle Cabrera',''),(349,'Leonardo Maioli',''),(350,'Silvia Monserrat Arzamendia Morel','6,094,059'),(351,'Alejandra Ledesma',''),(352,'Nestor Gauto',''),(353,'Oscar Diego Quiñonez Irrazabal','1,424,511'),(354,'Blas Duarte Medina',''),(355,'Osmar Dario Gonzalez','3,678,032'),(356,'Gabriel Bellassai',''),(357,'Bruno Mendoza',''),(358,'Lilian Ayala',''),(359,'Fatima Benitez',''),(360,'Natalia Benitez','5,646,394'),(361,'Alvaro Vaceque',''),(362,'Mirta Franco','7,086,488'),(363,'Rodrigo Ariel Rivas Martinez','4,910,019'),(364,'Julio Rivas',''),(365,'Rodolfo Arce','1,527,205'),(366,'Jorge David Lugo Irala','4,900,655'),(367,'Jacinta Benitez',''),(368,'Mariza Orrego',''),(369,'Rossana Cristaldo',''),(370,'Blas Lopez','5,443,372'),(371,'Soledad Morales',''),(372,'Gabino Adriano Medina Jara','3,037,747'),(373,'Gabriela Estigarribia',''),(374,'Milagros Lujan Figueredo ','4,366,743'),(375,'Guillermo Caballero','5,011,861'),(376,'Lujan Guadalupe Diaz Caniza','4,800,760'),(377,'Guadalupe Aquino','5,201,656'),(378,'Carlos Ricardo Alcaraz Leon','4,676,116'),(379,'Bertin Kamecki',''),(380,'Nery Acuña',''),(381,'Francisco Gabriel Chamorro Franco','5,361,938'),(382,'Hugo Agüero',''),(383,'David Cardozo',''),(384,'Alfredo Fabian Mendoza Martinez','4,814,377'),(385,'Martin Sanabria','3,990,762'),(386,'Matias Orue',''),(387,'Mariela Gamarra','4,723,952'),(388,'Miguel Navarro','4,672,141'),(389,'Mauricio Encina','4,345,320'),(390,'Maria Jose Mendoza Bogado','5,391,769'),(391,'Lilian Ramirez',''),(392,'Killy Moleda',''),(393,'Diego Britez',''),(394,'Teresa Garcete',''),(395,'Cristina Baruja',''),(396,'Jon Clamp','707,075,266'),(397,'Gabriela Medina',''),(398,'Ada Marilin Cabañas','4,437,222'),(399,'Pamela Gómez',''),(400,'Maria Selva Martinez','1,113,385'),(401,'Ricardo Jose Venancio Cambra Cantero','3,838,697'),(402,'Rodrigo Benitez Melgarejo','4,798,530'),(403,'Karen Dahiana Centurion Alvarenga','4,781,118'),(404,'ENrique M. Talavera','4.174.756'),(405,'Yeni Santacruz.',''),(406,'Paolo Barboza',''),(407,'Letizia Maria Alexandra Cardozo Ortega','4,711,066'),(408,'Lenny Makarena Rojas Aquino','3,796,124'),(409,'Oilda Villagra',''),(410,'Magali Echeverria',''),(411,'Axel Jara',''),(412,'Jorge Sanchez',''),(413,'Ariel Jara',''),(414,'Nancy Zarate',''),(415,'Griselda Lugo',''),(416,'Maria Angelica Nuñez',''),(417,'Fabiola Gimenez',''),(418,'Nadia Medina',''),(419,'Valeria Vazquez',''),(420,'Myriam Areco',''),(421,'Jesus Morinigo',''),(422,'Laura Colman',' '),(423,'Gustavos Genis',''),(424,'Basilia Zarate',''),(425,'Veronica Gomez',''),(426,'Cristhian Gabriel Delgado Salinas','4204756'),(427,'Catalina Arias',''),(428,'Enrique Cañiza',''),(429,'Gerbacio Morel',''),(430,'Alejandro Salomon','5,056,794'),(431,'Luis Codas',''),(432,'Maria Yanet Orue',''),(433,'Cristhian Duarte',''),(434,'Jose Villanueva',''),(435,'Valeriana Insfran','');
+INSERT INTO `person` (`id`, `name`, `cin`) VALUES (1,'Pedro Jaime Logan Keene',''),(2,'Tomas Florentin',''),(3,'Amado Adolfo Sanabria Flecha',''),(4,'Juan Carlos Gamba Sosa',''),(5,'Alberto Chamorro',''),(6,'Victor Manuel Sanabria Flecha',''),(7,'Luis Pellegrini',''),(8,'Carlos Sanabria Flecha',''),(9,'Juvencio Toñanez',''),(10,'Luis Fernando Heisecke',''),(11,'Jose Caceres',''),(12,'Pierre Alvaro Florentin Diaz',''),(13,'Raul De los Santos Abraham Fernandez ',''),(14,'Liz Gini',''),(15,'Enrique Renfelt',''),(16,'Rolland Hillar',''),(17,'Ermes Raul Villa Caceres',''),(18,'Mario Barrientos',''),(19,'Alberto Gustavo Gomez Arevalos',''),(20,'Fernando Javier Alderete Insfran',''),(21,'Victor Hugo Liuzzi Encina','1,091,002'),(22,'Luis Fernando Garcia Britez',''),(23,'Cesar Daniel Adorno Jacquet',''),(24,'Augusto Ruben Rodas Varela',''),(25,'Eduardo Andres Sanabria Duarte',''),(26,'Marcos Lezcano Sachelaridi','1,795,298'),(27,'Jacinto Riera',''),(28,'Natalia Torres',''),(29,'Uber Antonio Vera','3,542,540'),(30,'Pedro Benitez',''),(31,'Julio Acosta',''),(32,'Fidel Villalba',''),(33,'Juan Jara',''),(34,'Calixto Echeverria',''),(35,'Serafin Antonio Roche Pereira',''),(36,'Diana Romero',''),(37,'Marcos Ramon Torres Ortiz','1,365,318'),(38,'Jorgelina Chaparro Martinez',''),(39,'Ysaac Pedro De Carvalho Vallejos',''),(40,'Luis Alberto Benitez Garcia',''),(41,'Alfredo Muñoz',''),(42,'Aldo Hermosilla',''),(43,'Graciela Alcoba de Cabrera ',''),(44,'Heriberto Ceferino Candia',''),(45,'Carlos Herder Olguin Romero',''),(46,'Hernan Gustavo Olmedo Armengol',''),(47,'Victor Arnaldo Perineti Gonzalez',''),(48,'Veronica Liliana Guanes Ferreira',''),(49,'Maria Lorena Gonzalez Pereira',''),(50,'Sergio Pastor Gimenez Arias',''),(51,'Marta Beatriz Estigarribia Ruiz Diaz',''),(52,'Eduardo Ramon Lugo Ledesma',''),(53,'Alex Adorno ',''),(54,'Nelcy Beatriz Quevedo Allende',''),(55,'Aquiles Leon',''),(56,'Carlos David Britez Montiel',''),(57,'Juan Pablo Gomez Lacentre',''),(58,'Felix Guerrero',''),(59,'Christian Lisandro Dupland Amarilla ',''),(60,'Dirce Magdalena Yegros Aldama',''),(61,'Cynthia Natalia Gonzalez Duarte',''),(62,'Ruben Antonio Centurion Medina',''),(63,'Erik Cattebeke Gonzalez',''),(64,'Abel Argentino Ledesma Gómez',''),(65,'Oscar Jose Pino (h) ',''),(66,'Francisco Javier R. Gomez Samaniego','1,845,836'),(67,'Gloria Anahi Zaldivar Leon ',''),(68,'Claudia Andrea Salazar Zilich',''),(69,'Claudia Carolina Barua Leguizamon ',''),(70,'Horacio Jose Gonzalez Pereira',''),(71,'Sheila Martinez',''),(72,'Pablo Cabral',''),(73,'Santiago Raul Vazquez Gonzalez',''),(74,'Mariano Cattebeke Blaires',''),(75,'Luis Alberto Medina Ortiz','423,535'),(76,'Federico Ramon Garcia Britez',''),(77,'Angel Gabriel Gill Barreto','804,779'),(78,'Carlos Alberto Caballero','3,983,015'),(79,'Eris Dario Cabrera Nuñez (+)',''),(80,'Ruben Antonio Garcete Ferrari',''),(81,'Marcos David Reyes',''),(82,'Juan Esteban Florentin Diaz',''),(83,'Carla Ivana Hernandez Vega',''),(84,'Maria de Lujan Mongelos Gimenez',''),(85,'Walter Suarez',''),(86,'Arturo Santiago Nuñez Orue',''),(87,'Israel Elias Rodrigo Noldin',''),(88,'Alcides Ariel Ferreira','2,387,913'),(89,'Pedro Antonio Rejala Duarte',''),(90,'Jorge Luis Borja',''),(91,'Eduardo David Cabrera Nuñez',''),(92,'Fredy Alberto Garcia Aquino',''),(93,'Hilda Acosta de Ledesma',''),(94,'Catterine Cattebeke',''),(95,'Liz Colman',''),(96,'Narciso Fleitas',''),(97,'Fulvia Pereira de Gonzalez',''),(98,'Carlos Alberto Medina Ortiz',''),(99,'Carlos Samaniego Ruiz Diaz',''),(100,'Edgar Manuel Faria Ferreira',''),(101,'Rossana Maria Alcaraz Orrego',''),(102,'Luis Fernando Fleitas Esteche',''),(103,'Diego Francisco Moreira Telvez','4,814,491'),(104,'Osmar Ramon Moreno Cespedes',''),(105,'Nilsa Marlene Chavez Delgado',''),(106,'Sara Rosa Elizabeth Diaz',''),(107,'Sylvia Haydée Gimenez Scala',''),(108,'Marcos Herminio Galeano Flores ',''),(109,'Nelida Ma. De los Angeles Caballero M.',''),(110,'Pablo Reinero Galeano Sanabria ',''),(111,'Naida Susana Meza Riquelme','3,789,939'),(112,'Abel Mancuello ',''),(113,'Sonia Mancuello ',''),(114,'Ricardo Saldivar ',''),(115,'Romina Morinigo ',''),(116,'Jorge Luis Rodriguez Ayala',''),(117,'Josefina Concepcion Noguera Hermosa',''),(118,'Sergio Gomez Lacentre',''),(119,'Gabriela Isabel Arce Dolz',''),(120,'Fatima Alfonso',''),(121,'Fernando Rene Paez Meza',''),(122,'Marie Florentin (+)',''),(123,'Francisco Antonio Meza',''),(124,'Claudio David Cabañas Orue','3,475,021'),(125,'Raquel Hermosa','1,454,683'),(126,'Fernando Florentin Diaz',''),(127,'Francisco Javier Uzabal Escurra',''),(128,'Santiago Alberto Ledesma Benegas','2,430,714'),(129,'Adolfo Enmanuel Alvarez',''),(130,'Victor Raul Franco Rodas',''),(131,'David Cena',''),(132,'Guillermo Adrian Cairet Dietrich',''),(133,'Lilian Vera',''),(134,'Fernando Saggia ',''),(135,'Diego Garcia',''),(136,'Tania Villagra',''),(137,'Rosalba Yuki Akita Canela',''),(138,'Gustavo David Paiva Acosta',''),(139,'Edgar Britez Ayala','1,951,057'),(140,'Pablo Daniel Arevalos Nessi',''),(141,'Hector Fabian Britez Ayala',''),(142,'Denis Condoretty','2,330,622'),(143,'Esteban Espinoza',''),(144,'Humberto Fabian Vera Martinez',''),(145,'Isabel Palacios',''),(146,'Marcos Cristian Villamayor Huerta',''),(147,'Rosalia Saggia',''),(148,'Julio Gonzalez',''),(149,'Luis Miguel Ruiz Diaz Ayala',''),(150,'Osvaldo Sanabria',''),(151,'Ruth Noemi Servin Lavin ',''),(152,'Juliana Concepcion Garcia',''),(153,'Alfonso Aguilar',''),(154,'Augusto Lugo ',''),(155,'Jose Maria Mieres',''),(156,'Gerardo Ramon Melgarejo ',''),(157,'Cristian Melgarejo ',''),(158,'Ana Elizabeth Britez Ayala',''),(159,'Eduardo Demestri',''),(160,'Alfredo Crispin Da Rosa Miranda','2,084,664'),(161,'Leonardo Jose Maria Cardenas Alfonso',''),(162,'Jose Zabala',''),(163,'Gualberto Luis Ramon Martinez ',''),(164,'Maria Laura Villagra Ferreira',''),(165,'Sara Cabrera ',''),(166,'Clara Obelar',''),(167,'Norma Leguizamon',''),(168,'Jose Antonio Montorfano Chileno',''),(169,'Victor Ojeda',''),(170,'Juana Medina',''),(171,'Gloria Arza Riveros',''),(172,'Vicente Lezcano Sachelaridi',''),(173,'Lionel Maria Cristaldo Rienzi',''),(174,'Oscar Lovera',''),(175,'Oscar Pino (p) ',''),(176,'Julio Estigarribia',''),(177,'Sofia Karina Cardozo Sanchez',''),(178,'Victor Meza',''),(179,'Alfredo Zelaya',''),(180,'Gustavo Alcaraz',''),(181,'Martha Raquel Cristaldo Rodriguez',''),(182,'Sara Mendez',''),(183,'Zully Peralta',''),(184,'Yeny Stella Sosa Gonzalez',''),(185,'Francisca Pineda Balmaceda',''),(186,'Carmen Pineda Balmaceda',''),(187,'Iris Marlene Mareco Maidana',''),(188,'Emilio David Olmedo Hermosilla','3,649,692'),(189,'Horacio Centurion Princigalli ',''),(190,'Magno Alfredo Castillo Fernandez',''),(191,'Cesar Gonzalez ',''),(192,'Domingo Eduardo Mora Ramirez','1,148,202'),(193,'Veronica Soledad Ramirez',''),(194,'Raquel Iriondo Martinez',''),(195,'Pablo Habib Leston',''),(196,'Juan Rafael Campizz Gonzalez',''),(197,'Maria Auxiliadora Ayala Galeano',''),(198,'Emilce Yanina Cardozo Cespedes',''),(199,'Carlos Jose Volling Lezcano',''),(200,'Mirtha Liliana Ortola Etcheverry',''),(201,'Sonia Raquel Volling Lezcano',''),(202,'Jorge Inocencio Rodriguez',''),(203,'Jose Maria Segovia Gonzalez',''),(204,'Alberto Enriquez',''),(205,'Cruz Mariel Graciela Perez Amarilla','3,659,606'),(206,'Pedro Gilberto Medina Centurion ',''),(207,'Osvaldo Daniel Fretes Carmagnola',''),(208,'Cristian David Vera Baez',''),(209,'Rogelio de la Cruz Quiñonez Vargas',''),(210,'Victor Daniel Gutierrez Gallardo',''),(211,'Ines Victoria Fariña Lopez',''),(212,'Roberto Benitez Ortiz',''),(213,'Jorge Adrian Diaz',''),(214,'Andrea Celeste Rodriguez Cantero',''),(215,'Marcos Ledesma Colman',''),(216,'Rolando Jose Maidana  ','7,059,412'),(217,'Jorge Dario David Gomez Perez',''),(218,'Daniel Ferszt Caceres',''),(219,'Willian Rios',''),(220,'Jorge Antonio Gonzalez','4,352,143'),(221,'Blacia Britez',''),(222,'Sergio Fabian Almada Giménez',''),(223,'Adan Julián Sosa González',''),(224,'Jorge Raúl Giménez Alvarez',''),(225,'Marcos Ramón Sosa Donsert',''),(226,'Frida Geraldina González','3,217,398'),(227,'Lilian María Marta González González',''),(228,'Alvaro Morinigo',''),(229,'Arnaldo González',''),(230,'Guido Rene González Hermosa',''),(231,'Hugo Javier Ortiz Romero',''),(232,'Laura Gauto',''),(233,'Eliana Cabrera',''),(234,'Carlos Sebastian Valdovinos','3,198,753'),(235,'Lidia Carolina Gauto',''),(236,'José M. Díaz Ayala',''),(237,'Luis Mancuello',''),(238,'Cristian David Kadomatsu',''),(239,'Sandra Paola Rolón',''),(240,'Silvia Susana Silva','3,634,800'),(241,'Ana Martínez Balcazar',''),(242,'Juan Aquino',''),(243,'Tania M. Barreto López',''),(244,'Alexandre Diel',''),(245,'Carlos Joaquín Talavera Fernández',''),(246,'Diego Luis Insfran Segovia',''),(247,'Omar Dario Sanabria Núñez',''),(248,'Sara Yohana González Olmedo',''),(249,'Victor Daniel Escurra Pereira',''),(250,'Victor Hugo Esquivel Rolón',''),(251,'Cinthia Elince Ayala Giménez  ',''),(252,'Pedro Eduardo Fernandez Garcia',''),(253,'Felix Barreto',''),(254,'Angel Rafael Rojas Aveiro',''),(255,'Adrian Martinez',''),(256,'Juan Carlos Bellassai Gauto',''),(257,'Juan Andres del Puerto',''),(258,'Humberto Daniel Riveiro Gonzalez',''),(259,'Israel Ulises Melgarejo Estigarribia','4,507,487'),(260,'Maria Jose Ljubetic',''),(261,'Eduardo Douglas',''),(262,'Lorenza Pereira',''),(263,'Nelson Uribe',''),(264,'Liliana Elizabeth Esquivel Rotela',''),(265,'Hector Morinigo',''),(266,'Victor Amarilla',''),(267,'Jorge Arce',''),(268,'Francisco Benitez',''),(269,'Jonathan David Tompson Cohene','3,806,850'),(270,'Denys Damian Gómez Bernal',''),(271,'Israel de Jesús Cardozo Sanabria',''),(272,'Guillermo Osvaldo Taboada Romei',''),(273,'Alberto Federico Rolón Jara ',''),(274,'Cesar Machuca García',''),(275,'Ciro Nicolás Figueroa Jave',''),(276,'Guillermo Enrique Efrain Alarcon Maldonado',''),(277,'Erico Isaac Caballero Verón',''),(278,'Juan José Gaona Lerea',''),(279,'Alvaro Rodrigo Riveros','4,908,142'),(280,'José Manuel Cuevas Zarate',''),(281,'Rodrigo de Jesús Villagra Mora',''),(282,'Benigno Leonardo Ortiz Estigarribia',''),(283,'Orlando Javier Ortega Molinas',''),(284,'Víctor Manuel David Ortiz ',''),(285,'Luis Arnaldo Chavez Valdez',''),(286,'Alberto Martin Garay',''),(287,'José Antonio Ruíz Díaz Medina ',''),(288,'Jazmin Dumilia Valdovinos Mora',''),(289,'Carlos Alberto Baquer Silvero ',''),(290,'Giovanna Leocadia Viola D´Aquino ',''),(291,'Natasha María Oliveira y Silva Gariazu',''),(292,'Carlos Barrios Sartorio ',''),(293,'Jorge Ribas Careaga',''),(294,'Luis Rombert',''),(295,'Maria Alexandra Fernandez Acuña',''),(296,'Gustavo Adolfo Ozuna Amarilla',''),(297,'Francisco Elias Vera Dominguez',''),(298,'Diego Javier Lugo Ozorio','4,382,812'),(299,'Fernando Ramon Peralta Fernandez',''),(300,'Ruben Samuel Recalde Alarcon',''),(301,'Luis Fernando Barrios Fracchia',''),(302,'Bianca Maria Bazan Centurion',''),(303,'Liz Andrea Ramirez Diaz','5,162,140'),(304,'Ariel Mateo Orue Rodriguez',''),(305,'Anibal David Rojas Martinez',''),(306,'Oscar David Noguera Oviedo','4,662,233'),(307,'Sebastian Augusto Penayo Romero',''),(308,'Helga Rosa Welcher Lacognata',''),(309,'Esteban Ramon Amarilla Gariazu','4,219,706'),(310,'Ivan Ismael Insfran Torres',''),(311,'Javier Roman Brizuela Gomez',''),(312,'Alexandra Elizabeth Zarate Chavez',''),(313,'Delia Carolina Lezcano Astigarraga',''),(314,'Arnaldo Silverio Bordon Fleitas','5,023,500'),(315,'Richard Alison Benitez Flor',''),(316,'Pedro Daniel Acosta Ruiz Diaz',''),(317,'Pedro Giovanni Andino Martinez','3,668,267'),(318,'Emilio Marcelo Gonzalez Barrios',''),(319,'Justo Salomon Ocampos Ramirez',''),(320,'Juan Francisco Candia Escobar',''),(321,'Peter Braulio Sosa Dominguez',''),(322,'Pedro Leonardo Cabral Diaz',''),(323,'Arnaldo Andres Vera Aveiro',''),(324,'Rickx Fabian Roman Romero',''),(325,'Yanina Del Mar Mendoza Torres',''),(326,'Ruben Antonio Careaga Meza',''),(327,'Lucas Emmanuel Aguilar Galeano',''),(328,'Anna Victoria Wickzén Rojas',''),(329,'Rebeca Andrea Tamara Lugo Mendoza',''),(330,'César Sebastián Chávez Fernández',''),(331,'Manuela Edith Retamar Almirón',''),(332,'Robinson Richard Moudelle Cabrera',''),(333,'Pablo Amadeo Esquivel Cantero',''),(334,'Rodrigo Marcos Agustin Giménez Morales',''),(335,'Rodrigo Alfredo Diaz Vera',''),(336,'Ylsse Nathaly Jazmín Cabral',''),(337,'Hugo Daniel Recalde Pavon','1,242,328'),(338,'Pablo Fabián Benítez Flor',''),(339,'Karen Reseda Aquino Orué',''),(340,'Jonathan Enrique Rojas Arias',''),(341,'José Infante Rivarola Olmeda',''),(342,'Abel Ulises Martinez Peloso',''),(343,'Ruben Dario Acosta Gomez (+)',''),(344,'Juan Arce',''),(345,'Jose Dure',''),(346,'José Mauricio Espínola',''),(347,'Natalia Alvarenga',''),(348,'José Luis Moudelle Cabrera',''),(349,'Leonardo Maioli',''),(350,'Silvia Monserrat Arzamendia Morel','6,094,059'),(351,'Alejandra Ledesma',''),(352,'Nestor Gauto',''),(353,'Oscar Diego Quiñonez Irrazabal','1,424,511'),(354,'Blas Duarte Medina',''),(355,'Osmar Dario Gonzalez','3,678,032'),(356,'Gabriel Bellassai',''),(357,'Bruno Mendoza',''),(358,'Lilian Ayala',''),(359,'Fatima Benitez',''),(360,'Natalia Benitez','5,646,394'),(361,'Alvaro Vaceque',''),(362,'Mirta Franco','7,086,488'),(363,'Rodrigo Ariel Rivas Martinez','4,910,019'),(364,'Julio Rivas',''),(365,'Rodolfo Arce','1,527,205'),(366,'Jorge David Lugo Irala','4,900,655'),(367,'Jacinta Benitez',''),(368,'Mariza Orrego',''),(369,'Rossana Cristaldo',''),(370,'Blas Lopez','5,443,372'),(371,'Soledad Morales',''),(372,'Gabino Adriano Medina Jara','3,037,747'),(373,'Gabriela Estigarribia',''),(374,'Milagros Lujan Figueredo ','4,366,743'),(375,'Guillermo Caballero','5,011,861'),(376,'Lujan Guadalupe Diaz Caniza','4,800,760'),(377,'Guadalupe Aquino','5,201,656'),(378,'Carlos Ricardo Alcaraz Leon','4,676,116'),(379,'Bertin Kamecki',''),(380,'Nery Acuña',''),(381,'Francisco Gabriel Chamorro Franco','5,361,938'),(382,'Hugo Agüero',''),(383,'David Cardozo',''),(384,'Alfredo Fabian Mendoza Martinez','4,814,377'),(385,'Martin Sanabria','3,990,762'),(386,'Matias Orue',''),(387,'Mariela Gamarra','4,723,952'),(388,'Miguel Navarro','4,672,141'),(389,'Mauricio Encina','4,345,320'),(390,'Maria Jose Mendoza Bogado','5,391,769'),(391,'Lilian Ramirez',''),(392,'Killy Moleda',''),(393,'Diego Britez',''),(394,'Teresa Garcete',''),(395,'Cristina Baruja',''),(396,'Jon Clamp','707,075,266'),(397,'Gabriela Medina',''),(398,'Ada Marilin Cabañas','4,437,222'),(399,'Pamela Gómez',''),(400,'Maria Selva Martinez','1,113,385'),(401,'Ricardo Jose Venancio Cambra Cantero','3,838,697'),(402,'Rodrigo Benitez Melgarejo','4,798,530'),(403,'Karen Dahiana Centurion Alvarenga','4,781,118'),(404,'kiquetal M. Talavera','4.174.756'),(405,'Yeni Santacruz.',''),(406,'Paolo Barboza',''),(407,'Letizia Maria Alexandra Cardozo Ortega','4,711,066'),(408,'Lenny Makarena Rojas Aquino','3,796,124'),(409,'Oilda Villagra',''),(410,'Magali Echeverria',''),(411,'Axel Jara',''),(412,'Jorge Sanchez',''),(413,'Ariel Jara',''),(414,'Nancy Zarate',''),(415,'Griselda Lugo',''),(416,'Maria Angelica Nuñez',''),(417,'Fabiola Gimenez',''),(418,'Nadia Medina',''),(419,'Valeria Vazquez',''),(420,'Myriam Areco',''),(421,'Jesus Morinigo',''),(422,'Laura Colman',' '),(423,'Gustavos Genis',''),(424,'Basilia Zarate',''),(425,'Veronica Gomez',''),(426,'Cristhian Gabriel Delgado Salinas','4204756'),(427,'Catalina Arias',''),(428,'Enrique Cañiza',''),(429,'Gerbacio Morel',''),(430,'Alejandro Salomon','5,056,794'),(431,'Luis Codas',''),(432,'Maria Yanet Orue',''),(433,'Cristhian Duarte',''),(434,'Jose Villanueva',''),(435,'Valeriana Insfran',''),(436,'SENAD INSTRUCTOR 1','12312321'),(437,'Person alien2','123132');
 /*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -383,7 +485,7 @@ CREATE TABLE `station` (
 
 LOCK TABLES `station` WRITE;
 /*!40000 ALTER TABLE `station` DISABLE KEYS */;
-INSERT INTO `station` (`id`, `name`, `address`, `telephone`) VALUES (1,'Viaducto','Gral Santos y Eusebio Ayala',NULL);
+INSERT INTO `station` (`id`, `name`, `address`, `telephone`) VALUES (1,'Viaducto','Gral Santos y Eusebio Ayala',NULL),(2,'plaza americas','san martin esq Mcal Lopez',NULL);
 /*!40000 ALTER TABLE `station` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -396,4 +498,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-29 11:14:39
+-- Dump completed on 2018-07-30  0:47:42
