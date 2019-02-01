@@ -188,7 +188,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "routes/firefighters.js",
+    "filename": "routes/persons.js",
     "groupTitle": "Persons",
     "name": "GetPersons"
   },
@@ -245,9 +245,108 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "routes/firefighters.js",
+    "filename": "routes/persons.js",
     "groupTitle": "Persons",
     "name": "GetPersonsId"
+  },
+  {
+    "type": "get",
+    "url": "/persons/:person_id/attendances",
+    "title": "Attendances by PersonId",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "person_id",
+            "description": "<p>Person unique ID.</p>"
+          }
+        ]
+      }
+    },
+    "group": "Persons",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Name",
+            "optional": false,
+            "field": "name",
+            "description": "<p>person name</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "attendances",
+            "description": ""
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "attendances.activity_id",
+            "description": "<p>Person id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "attendances.present",
+            "description": "<p>Person\\s name</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "attendances.is_instructor",
+            "description": "<p>If person is instructor in this activity</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "attendances.description",
+            "description": "<p>Description of activity,</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "attendances.start_date",
+            "description": "<p>Start date of activity.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "attendances.end_date",
+            "description": "<p>End date of activity for this person</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "ba",
+            "optional": false,
+            "field": "ba",
+            "description": "<p>If this person is a firefighter should have a ba identification.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success",
+          "content": "    HTTP/1.1 200 OK\n     {\n    \"name\": \"SENAD INSTRUCTOR 1\",\n    \"attendances\": [\n        {\n            \"activity_id\": 1,\n            \"present\": 0,\n            \"is_instructor\": 1,\n            \"description\": \"probando put\",\n            \"start_date\": \"2018-07-22T21:12:32\",\n            \"end_date\": \"2018-07-22T21:38:21\"\n        },\n        {\n            \"activity_id\": 2,\n            \"present\": 0,\n            \"is_instructor\": 0,\n            \"description\": \"Actualizando actividad\",\n            \"start_date\": \"Invalid date\",\n            \"end_date\": \"Invalid date\"\n        }\n    ],\n    \"ba\": null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/persons.js",
+    "groupTitle": "Persons",
+    "name": "GetPersonsPerson_idAttendances"
   },
   {
     "type": "put",
@@ -330,7 +429,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "routes/firefighters.js",
+    "filename": "routes/persons.js",
     "groupTitle": "Persons",
     "name": "PutPersonsId"
   },
@@ -374,7 +473,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "routes/firefighters.js",
+    "filename": "routes/ranks.js",
     "groupTitle": "Ranks",
     "name": "GetRanks"
   },
@@ -431,7 +530,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "routes/firefighters.js",
+    "filename": "routes/ranks.js",
     "groupTitle": "Ranks",
     "name": "GetRanksRank_id"
   },
@@ -509,7 +608,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "routes/firefighters.js",
+    "filename": "routes/ranks.js",
     "groupTitle": "Ranks",
     "name": "PutRanksRank_id"
   }

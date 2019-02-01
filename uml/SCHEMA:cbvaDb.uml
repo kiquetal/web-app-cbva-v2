@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>24524191-6c99-487b-a9d7-c88dab50372b.SCHEMA:cbvaDb</OriginalElement>
+  <nodes>
+    <node x="55.5" y="438.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter</node>
+    <node x="38.0" y="680.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter_audit</node>
+    <node x="435.5" y="473.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.instructor_activity</node>
+    <node x="473.0" y="173.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity</node>
+    <node x="0.0" y="230.5">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.rank</node>
+    <node x="242.5" y="230.5">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.person</node>
+    <node x="231.5" y="449.5">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.attendance_activity</node>
+    <node x="340.25" y="23.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity_type</node>
+    <node x="597.25" y="0.0">24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.station</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.person">
+      <point x="39.0" y="-96.0" />
+      <point x="172.5" y="413.0" />
+      <point x="269.5" y="413.0" />
+      <point x="-54.0" y="50.0" />
+    </edge>
+    <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.rank">
+      <point x="-39.0" y="-96.0" />
+      <point x="0.0" y="50.0" />
+    </edge>
+    <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity_type">
+      <point x="-50.25" y="-107.5" />
+      <point x="523.25" y="148.0" />
+      <point x="458.75" y="148.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.instructor_activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity">
+      <point x="46.0" y="-61.0" />
+      <point x="0.0" y="107.5" />
+    </edge>
+    <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.station">
+      <point x="50.25" y="-107.5" />
+      <point x="623.75" y="148.0" />
+      <point x="688.25" y="148.0" />
+      <point x="0.0" y="61.5" />
+    </edge>
+    <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.instructor_activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.person">
+      <point x="-46.0" y="-61.0" />
+      <point x="481.5" y="413.0" />
+      <point x="377.5" y="413.0" />
+      <point x="54.0" y="50.0" />
+    </edge>
+    <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter_audit" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.firefighter">
+      <point x="0.0" y="-49.5" />
+      <point x="0.0" y="96.0" />
+    </edge>
+    <edge source="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.attendance_activity" target="24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.person">
+      <point x="0.0" y="-84.5" />
+      <point x="0.0" y="50.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7021276595744681" x="390.0" y="389.5" />
+  <SelectedNodes>
+    <node>24524191-6c99-487b-a9d7-c88dab50372b.TABLE:cbvaDb.station</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+

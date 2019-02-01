@@ -30,6 +30,46 @@ module.exports = app => {
             })
         });
 
+    /**
+     * @api {get} /persons/:person_id/attendances Attendances by PersonId
+     * @apiParam {Number} person_id Person unique ID.
+     * @apiGroup Persons
+     * @apiSuccess {Name} name person name
+     * @apiSuccess {Object[]} attendances
+     * @apiSuccess {Number} attendances.activity_id Person id
+     * @apiSuccess {Number} attendances.present  Person\s name
+     * @apiSuccess {Number} attendances.is_instructor If person is instructor in this activity
+     * @apiSuccess {String} attendances.description Description of activity,
+     * @apiSuccess {String} attendances.start_date Start date of activity.
+     * @apiSuccess {String} attendances.end_date End date of activity for this person
+     * @apiSuccess {ba} ba If this person is a firefighter should have a ba identification.
+     * @apiSuccessExample {json} Success
+     *     HTTP/1.1 200 OK
+     {
+    "name": "SENAD INSTRUCTOR 1",
+    "attendances": [
+        {
+            "activity_id": 1,
+            "present": 0,
+            "is_instructor": 1,
+            "description": "probando put",
+            "start_date": "2018-07-22T21:12:32",
+            "end_date": "2018-07-22T21:38:21"
+        },
+        {
+            "activity_id": 2,
+            "present": 0,
+            "is_instructor": 0,
+            "description": "Actualizando actividad",
+            "start_date": "Invalid date",
+            "end_date": "Invalid date"
+        }
+    ],
+    "ba": null
+}
+     */
+
+
 
     app.route("/persons/:person_id/attendances")
         .get((req, res) => {
@@ -41,7 +81,7 @@ module.exports = app => {
                 .join("person as p", "p.id", "attendance_activity.person_id")
                 .leftOuterJoin("firefighter as f", "f.person_id", "attendance_activity.person_id")
                 .where({"attendance_activity.person_id": req.params.person_id})
-                .select("p.name as name ", "f.ba", "s.name as station_name", "activity.id as activity_id", "activity.label_activity as actividad", "attendance_activity.present", "attendance_activity.is_instructor", "activity.description", "attendance_activity.start_activity as start_date", "attendance_activity.end_activity as end_date").groupBy("activity.id").then(attendances => {
+                .select("p.name as name ", "f.ba","s.name as station_name", "activity.id as activity_id", "activity.label_activity as actividad", "attendance_activity.present", "attendance_activity.is_instructor", "activity.description", "attendance_activity.start_activity as start_date", "attendance_activity.end_activity as end_date").groupBy(["activity.id","f.ba"]).then(attendances => {
 
                 var reduceAttedances = attendances.reduce((acc, obj) => {
 
