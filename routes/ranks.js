@@ -1,5 +1,7 @@
 module.exports = app => {
-    /**
+    const db = app.db;
+
+	/**
      * @api {get} /ranks  All ranks
      * @apiGroup Ranks
      * @apiSuccess {Number} id Rank id

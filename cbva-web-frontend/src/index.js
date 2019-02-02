@@ -1,13 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import ListFirefighters from "./firefighters/ListFirefighters";
+import { render } from 'react-dom';
 
-ReactDOM.render(<ListFirefighters />, document.getElementById('root'));
+import UserForm from './firefighters/AddFirefighters';
+import ListFirefighters from './firefighters/ListFirefighters'
+import './bootstrap-min.css';
+const imaginaryUser = {
+    email: '',
+    username: '',
+    imaginaryThingId: null,
+};
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const App = () => (
+    <div className="App">
+        <UserForm user={imaginaryUser} />
+        <p>
+            <ListFirefighters/>
+        </p>
+    </div>
+);
+
+render(<App />, document.getElementById('root'));
