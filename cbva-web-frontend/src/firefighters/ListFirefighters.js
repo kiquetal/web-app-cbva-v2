@@ -113,6 +113,16 @@ const styles = theme => ({
         overflowX: 'auto',
     },
 });
+const WrapperElement=(props)=>{
+    return (<div>
+        <h3>ListaFirefighters</h3>
+
+        <br/><br/>
+            <ListFirefighters classes={props}/>
+
+    </div>);
+}
+
 
 class ListFirefighters extends React.Component {
     state = {
@@ -143,6 +153,8 @@ class ListFirefighters extends React.Component {
         this.setState({ rowsPerPage: event.target.value });
     };
 
+
+
     render() {
         const { classes } = this.props;
         const { rows, rowsPerPage, page } = this.state;
@@ -154,7 +166,7 @@ class ListFirefighters extends React.Component {
         return (
 
                 <Paper className={classes.root}>
-                <div className={classes.tableWrapper}>
+                    <div className={classes.tableWrapper}>
                     <Table className={classes.table}>
                         <TableBody>
                             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => (
@@ -200,4 +212,4 @@ ListFirefighters.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ListFirefighters);
+export default withStyles(styles)(WrapperElement);
