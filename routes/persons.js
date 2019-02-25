@@ -19,8 +19,24 @@ module.exports = app => {
      */
 
     app.route("/persons")
+	.options((req,res)=>{
+           res.header('Access-Control-Allow-Origin', '*');
+   res.header('Access-Control-Allow-Methods', 'PATCH, POST, PUT, OPTIONS')
+   res.header('Access-Control-Allow-Headers','Content-Type, X-Total-Count, Authorization')
+   res.header('Access-Control-Expose-Headers','X-Total-Count')
+	res.send(200);		
+	})
         .get((req, res) => {
-            db.knex("person").select("*").then(persons => res.json({"result": persons}));
+            db.knex("person").select("*").then(persons =>  {
+		               res.header('Access-Control-Allow-Origin', '*');
+   res.header('Access-Control-Expose-Headers','X-Total-Count,Content-Range');
+
+		                                   res.header('Content-Range', `persons  0 - 5 / ${persons.length}`); 
+		                                    res.header('X-Total-Count',persons.length);
+		                                 //   res.json({"result": persons} );
+		    					res.json(persons);                               
+		    //res.header('X-Total-Count',persons.length)
+	                                             });
         })
         .post((req, res) => {
             db.knex("person").insert(req.body).then(r => {
