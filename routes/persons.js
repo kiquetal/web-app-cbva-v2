@@ -27,12 +27,25 @@ module.exports = app => {
 	res.send(200);		
 	})
         .get((req, res) => {
-            db.knex("person").select("*").then(persons =>  {
+            let totalRecords=0;
+            let range=JSON.parse(req.query.range);
+            console.log("range" + JSON.stringify(range) + "typeof "+ typeof  range);
+            let [page,perPage]=range;
+            console.log(page)
+            console.log(perPage);
+
+            db.knex("person").count("* as total").then(persons =>{
+                console.log(persons);
+                totalRecords=persons[0]["total"];
+
+            });
+
+            db.knex("person").select("*").offset(page).limit(perPage+1).then(persons =>  {
 		               res.header('Access-Control-Allow-Origin', '*');
    res.header('Access-Control-Expose-Headers','X-Total-Count,Content-Range');
+             //   res.header('X-Total-Count',totalRecords);
 
-		                                   res.header('Content-Range', `persons  0 - 5 / ${persons.length}`); 
-		                                    res.header('X-Total-Count',persons.length);
+		                                   res.header('Content-Range', `items ${page}-${perPage}/${totalRecords}`);
 		                                 //   res.json({"result": persons} );
 		    					res.json(persons);                               
 		    //res.header('X-Total-Count',persons.length)
