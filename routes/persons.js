@@ -28,6 +28,10 @@ module.exports = app => {
 	})
         .get((req, res) => {
             let totalRecords=0;
+            let filter=JSON.parse(req.query.filter);
+            console.log(filter);
+            let {q: query}=filter;
+            if (!query) query="";
             let range=JSON.parse(req.query.range);
             console.log("range" + JSON.stringify(range) + "typeof "+ typeof  range);
             let [page,perPage]=range;
@@ -40,16 +44,30 @@ module.exports = app => {
 
             });
 
-            db.knex("person").select("*").offset(page).limit(perPage+1).then(persons =>  {
-		               res.header('Access-Control-Allow-Origin', '*');
-   res.header('Access-Control-Expose-Headers','X-Total-Count,Content-Range');
-             //   res.header('X-Total-Count',totalRecords);
+            if (query.length>0) {
+                db.knex("person").select("*").offset(page).limit(perPage + 1).where('name','like',`%${query}%`).then(persons => {
+                    res.header('Access-Control-Allow-Origin', '*');
+                    res.header('Access-Control-Expose-Headers', 'X-Total-Count,Content-Range');
+                    //   res.header('X-Total-Count',totalRecords);
 
-		                                   res.header('Content-Range', `items ${page}-${perPage}/${totalRecords}`);
-		                                 //   res.json({"result": persons} );
-		    					res.json(persons);                               
-		    //res.header('X-Total-Count',persons.length)
-	                                             });
+                    res.header('Content-Range', `items ${page}-${perPage}/${totalRecords}`);
+                    //   res.json({"result": persons} );
+                    res.json(persons);
+                    //res.header('X-Total-Count',persons.length)
+                });
+            }
+            else {
+                db.knex("person").select("*").offset(page).limit(perPage + 1).then(persons => {
+                    res.header('Access-Control-Allow-Origin', '*');
+                    res.header('Access-Control-Expose-Headers', 'X-Total-Count,Content-Range');
+                    //   res.header('X-Total-Count',totalRecords);
+
+                    res.header('Content-Range', `items ${page}-${perPage}/${totalRecords}`);
+                    //   res.json({"result": persons} );
+                    res.json(persons);
+
+                });
+            }
         })
         .post((req, res) => {
             db.knex("person").insert(req.body).then(r => {
