@@ -45,7 +45,8 @@ module.exports = app => {
             });
 
             if (query.length>0) {
-                db.knex("person").select("*").offset(page).limit(perPage + 1).where('name','like',`%${query}%`).then(persons => {
+                console.log("no query for filter");
+                db.knex("person").select("*").offset(page).limit(perPage + page + 1).where('name','like',`%${query}%`).then(persons => {
                     res.header('Access-Control-Allow-Origin', '*');
                     res.header('Access-Control-Expose-Headers', 'X-Total-Count,Content-Range');
                     //   res.header('X-Total-Count',totalRecords);
@@ -57,7 +58,8 @@ module.exports = app => {
                 });
             }
             else {
-                db.knex("person").select("*").offset(page).limit(perPage + 1).then(persons => {
+                console.log("Page from query" + page + "per page "+ perPage + "diff"+ (perPage-page + 1));
+                db.knex("person").select("*").offset(page).limit(perPage-page+1).then(persons => {
                     res.header('Access-Control-Allow-Origin', '*');
                     res.header('Access-Control-Expose-Headers', 'X-Total-Count,Content-Range');
                     //   res.header('X-Total-Count',totalRecords);
